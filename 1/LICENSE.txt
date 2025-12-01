@@ -1,0 +1,2 @@
+This project is protected by WebGraphiz's Regular License. For more information,
+check the official license page at https://webgraphiz.com/license
