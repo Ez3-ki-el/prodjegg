@@ -21,7 +21,7 @@ else
 {
     Console.WriteLine("🗄️ Using PostgreSQL database");
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
-        ?? "Host=localhost;Port=5432;Database=prodjeggDB;Username=postgres;Password=postgres";
+        ?? "Host=localhost;Port=5432;Database=prodjegg_db;Username=postgres;Password=postgres";
     builder.Services.AddDbContext<AppDb>(options =>
         options.UseNpgsql(connectionString));
 }

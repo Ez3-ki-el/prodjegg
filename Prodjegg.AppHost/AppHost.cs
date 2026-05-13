@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Hosting; // ou le package approprié pour AddPostgres
+using Microsoft.Extensions.Hosting; // ou le package appropriï¿½ pour AddPostgres
 
 
 // --- Builder ---
@@ -6,8 +6,8 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 // --- Ajout postgres ---
 var postgres = builder.AddPostgres("postgres");
-// --- Création BDD ---
-var db = postgres.AddDatabase("prodjeggDB");
+// --- Crï¿½ation BDD ---
+var db = postgres.AddDatabase("prodjegg_db");
     //.WithUsername("prodjegg_user")
     //.WithPassword("secure_password")
     //.WithPort(5432)
@@ -19,8 +19,8 @@ var apiService = builder.AddProject<Projects.Prodjegg_ApiService>("apiservice")
     .WithHttpHealthCheck("/health")
     .WaitFor(db);
 
-// Frontend Angular - À lancer manuellement avec: cd ClientApp && npm start
-// Décommenté pour simplifier le lancement depuis VS
+// Frontend Angular - ï¿½ lancer manuellement avec: cd ClientApp && npm start
+// Dï¿½commentï¿½ pour simplifier le lancement depuis VS
 // var frontend = builder.AddNpmApp("frontend", "../ClientApp", "start")
 //     .WithHttpEndpoint(env: "PORT")
 //     .WithExternalHttpEndpoints() 

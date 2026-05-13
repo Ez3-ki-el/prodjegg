@@ -34,6 +34,6 @@ services:
 databases:
   # PostgreSQL Database
   - name: prodjegg-db
-    databaseName: prodjeggDB
+    databaseName: prodjegg_db
     plan: free  # Gratuit pour 90 jours, puis 7$/mois
     region: frankfurt  # Même région que le service web
