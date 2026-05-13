@@ -7,40 +7,27 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Database connection (PostgreSQL ou SQLite)
-var databaseProvider = builder.Configuration["Database:Provider"] ?? "Sqlite";
+// Database connection (PostgreSQL)
+Console.WriteLine("🗄️ Using PostgreSQL database");
+var rawConnectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? "Host=localhost;Port=5432;Database=prodjegg_db;Username=postgres;Password=postgres";
 
-if (databaseProvider == "Sqlite")
+// Convert PostgreSQL URL format (postgresql://user:pass@host/db) to Npgsql key-value format
+string dbConnectionString;
+if (rawConnectionString.StartsWith("postgresql://") || rawConnectionString.StartsWith("postgres://"))
 {
-    Console.WriteLine("🗄️ Using SQLite database");
-    var connectionString = builder.Configuration.GetConnectionString("SqliteConnection") ?? "Data Source=prodjegg.db";
-    builder.Services.AddDbContext<AppDb>(options =>
-        options.UseSqlite(connectionString));
+    var uri = new Uri(rawConnectionString);
+    var userInfo = uri.UserInfo.Split(':', 2);
+    var port = uri.Port > 0 ? uri.Port : 5432;
+    dbConnectionString = $"Host={uri.Host};Port={port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={Uri.UnescapeDataString(userInfo[1])};SSL Mode=Require;Trust Server Certificate=true";
 }
 else
 {
-    Console.WriteLine("🗄️ Using PostgreSQL database");
-    var rawConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
-        ?? "Host=localhost;Port=5432;Database=prodjegg_db;Username=postgres;Password=postgres";
-
-    // Convert PostgreSQL URL format (postgresql://user:pass@host/db) to Npgsql key-value format
-    string connectionString;
-    if (rawConnectionString.StartsWith("postgresql://") || rawConnectionString.StartsWith("postgres://"))
-    {
-        var uri = new Uri(rawConnectionString);
-        var userInfo = uri.UserInfo.Split(':', 2);
-        var port = uri.Port > 0 ? uri.Port : 5432;
-        connectionString = $"Host={uri.Host};Port={port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={Uri.UnescapeDataString(userInfo[1])};SSL Mode=Require;Trust Server Certificate=true";
-    }
-    else
-    {
-        connectionString = rawConnectionString;
-    }
-
-    builder.Services.AddDbContext<AppDb>(options =>
-        options.UseNpgsql(connectionString)
-               .ConfigureWarnings(w => w.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning)));
+    dbConnectionString = rawConnectionString;
 }
+
+builder.Services.AddDbContext<AppDb>(options =>
+    options.UseNpgsql(dbConnectionString));
 
 builder.Services.AddProblemDetails();
 
