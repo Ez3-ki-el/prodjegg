@@ -22,11 +22,10 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS backend-build
 WORKDIR /app
 
 # Copy solution and project files
-COPY *.sln ./
+COPY *.sln* ./
 COPY Prodjegg.ApiService/*.csproj ./Prodjegg.ApiService/
 COPY Prodjegg.Data/*.csproj ./Prodjegg.Data/
 COPY Prodjegg.ServiceDefaults/*.csproj ./Prodjegg.ServiceDefaults/
-COPY Prodjegg.AppHost/*.csproj ./Prodjegg.AppHost/
 
 # Restore dependencies
 RUN dotnet restore
