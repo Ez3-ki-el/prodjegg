@@ -7,7 +7,7 @@ var builder = DistributedApplication.CreateBuilder(args);
 // --- Ajout postgres ---
 var postgres = builder.AddPostgres("postgres");
 // --- Cr�ation BDD ---
-var db = postgres.AddDatabase("prodjegg_db");
+var db = postgres.AddDatabase("prodjegg-db");
     //.WithUsername("prodjegg_user")
     //.WithPassword("secure_password")
     //.WithPort(5432)
