@@ -48,7 +48,7 @@ RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 COPY --from=backend-build /app/publish .
 
 # Copy built frontend to wwwroot
-COPY --from=frontend-build /app/frontend/dist/prodjegg-angular/browser ./wwwroot
+COPY --from=frontend-build /app/frontend/dist/prodjegg-angular ./wwwroot
 
 # Create directory for uploads
 RUN mkdir -p /app/wwwroot/uploads && chmod -R 755 /app/wwwroot
