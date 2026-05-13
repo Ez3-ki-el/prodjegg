@@ -28,7 +28,7 @@ COPY Prodjegg.Data/*.csproj ./Prodjegg.Data/
 COPY Prodjegg.ServiceDefaults/*.csproj ./Prodjegg.ServiceDefaults/
 
 # Restore dependencies
-RUN dotnet restore
+RUN dotnet restore Prodjegg.ApiService/Prodjegg.ApiService.csproj
 
 # Copy all source code
 COPY . .
