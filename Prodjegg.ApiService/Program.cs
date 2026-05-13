@@ -38,7 +38,8 @@ else
     }
 
     builder.Services.AddDbContext<AppDb>(options =>
-        options.UseNpgsql(connectionString));
+        options.UseNpgsql(connectionString)
+               .ConfigureWarnings(w => w.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning)));
 }
 
 builder.Services.AddProblemDetails();
