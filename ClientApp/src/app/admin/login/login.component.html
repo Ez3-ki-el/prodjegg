@@ -1,0 +1,46 @@
+<div class="login-container">
+  <div class="login-box">
+    <div class="login-header">
+      <iconify-icon icon="bxs:camera-movie"></iconify-icon>
+      <h1>Prodjegg Admin</h1>
+      <p>Connectez-vous pour gérer votre portfolio</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input 
+          type="text" 
+          id="username" 
+          formControlName="username" 
+          class="form-control"
+          placeholder="Entrez votre username"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          formControlName="password" 
+          class="form-control"
+          placeholder="Entrez votre mot de passe"
+        />
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="loading || loginForm.invalid">
+        <span *ngIf="!loading">Se connecter</span>
+        <span *ngIf="loading">Connexion...</span>
+      </button>
+    </form>
+
+    <div class="login-footer">
+      <p><a href="/">← Retour au site</a></p>
+    </div>
+  </div>
+</div>

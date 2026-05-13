@@ -1,0 +1,58 @@
+<div class="edit-page">
+  <h2>{{ isEditMode ? 'Modifier' : 'Ajouter' }} un témoignage</h2>
+  
+  <form [formGroup]="testimonialForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Nom du client</label>
+        <input type="text" formControlName="clientName" class="form-control" placeholder="Ex: Jean Dupont" />
+      </div>
+
+      <div class="form-group">
+        <label>Titre/Entreprise</label>
+        <input type="text" formControlName="clientTitle" class="form-control" placeholder="Ex: CEO, TechCorp" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <app-image-upload
+        [currentImage]="testimonialForm.get('clientImagePath')?.value"
+        folder="testimonials"
+        label="Photo du client"
+        (imageUploaded)="onImageUploaded($event)">
+      </app-image-upload>
+    </div>
+
+    <div class="form-group">
+      <label>Témoignage</label>
+      <textarea formControlName="content" class="form-control" rows="5" 
+        placeholder="Excellent travail ! Je recommande vivement..."></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Note (1-5 étoiles)</label>
+        <select formControlName="rating" class="form-control">
+          <option value="1">⭐ 1 étoile</option>
+          <option value="2">⭐⭐ 2 étoiles</option>
+          <option value="3">⭐⭐⭐ 3 étoiles</option>
+          <option value="4">⭐⭐⭐⭐ 4 étoiles</option>
+          <option value="5">⭐⭐⭐⭐⭐ 5 étoiles</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Ordre d'affichage</label>
+        <input type="number" formControlName="order" class="form-control" />
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="loading || testimonialForm.invalid">
+        <span *ngIf="!loading">{{ isEditMode ? 'Mettre à jour' : 'Créer' }}</span>
+        <span *ngIf="loading">Enregistrement...</span>
+      </button>
+      <button type="button" class="btn btn-secondary" routerLink="/admin/testimonials">Annuler</button>
+    </div>
+  </form>
+</div>

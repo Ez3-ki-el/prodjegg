@@ -1,0 +1,436 @@
+/* ================================================
+   CSS GLOBAL ADMIN - RESET & OVERRIDE
+   Ce fichier surcharge TOUS les styles globaux
+   ================================================ */
+
+/* RESET MINIMAL pour le module admin */
+.admin-layout,
+.admin-layout *,
+.admin-layout *::before,
+.admin-layout *::after {
+  box-sizing: border-box !important;
+}
+
+/* Applique les styles de base SEULEMENT sur le container principal */
+.admin-layout {
+  display: flex !important;
+  height: 100vh !important;
+  width: 100vw !important;
+  overflow: hidden !important;
+  background: #f8fafc !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+  color: #1f2937 !important;
+}
+
+/* SIDEBAR */
+.admin-layout .sidebar {
+  width: 290px !important;
+  min-width: 290px !important;
+  max-width: 290px !important;
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%) !important;
+  color: white !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex-shrink: 0 !important;
+  height: 100vh !important;
+  overflow-y: auto !important;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15) !important;
+}
+
+.admin-layout .sidebar-header {
+  padding: 32px 24px 28px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  flex-shrink: 0 !important;
+  background: rgba(102, 126, 234, 0.05) !important;
+}
+
+.admin-layout .sidebar-header i {
+  font-size: 42px !important;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  display: inline-block !important;
+  filter: drop-shadow(0 2px 8px rgba(102, 126, 234, 0.3)) !important;
+}
+
+.admin-layout .sidebar-header h2 {
+  margin: 0 !important;
+  font-size: 24px !important;
+  font-weight: 800 !important;
+  color: white !important;
+  display: inline-block !important;
+  letter-spacing: -0.8px !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.admin-layout .sidebar-nav {
+  flex: 1 !important;
+  padding: 20px 0 !important;
+  overflow-y: auto !important;
+  display: block !important;
+}
+
+.admin-layout .sidebar-nav a {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  padding: 16px 24px !important;
+  color: rgba(255, 255, 255, 0.65) !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  white-space: nowrap !important;
+  margin: 3px 16px !important;
+  border: none !important;
+  font-weight: 500 !important;
+  border-radius: 12px !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.admin-layout .sidebar-nav a:hover,
+.admin-layout .sidebar-nav a.active {
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15) !important;
+}
+
+.admin-layout .sidebar-nav a.active {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%) !important;
+  font-weight: 600 !important;
+}
+
+.admin-layout .sidebar-nav a i {
+  font-size: 24px !important;
+  flex-shrink: 0 !important;
+  display: inline-block !important;
+  width: auto !important;
+  text-align: center !important;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.admin-layout .sidebar-nav a.active i {
+  color: #c7d2fe !important;
+  filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.4)) !important;
+}
+
+.admin-layout .sidebar-nav a:hover i {
+  transform: scale(1.1) rotate(-5deg) !important;
+  color: #a5b4fc !important;
+}
+
+.admin-layout .sidebar-nav a span {
+  display: inline-block !important;
+  font-size: 15px !important;
+  flex: 1 !important;
+}
+
+.admin-layout .sidebar-footer {
+  padding: 20px 24px 24px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  flex-shrink: 0 !important;
+  display: block !important;
+  background: rgba(0, 0, 0, 0.15) !important;
+}
+
+.admin-layout .btn-logout {
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  padding: 16px !important;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.15) 100%) !important;
+  color: #fca5a5 !important;
+  border: 1px solid rgba(239, 68, 68, 0.25) !important;
+  border-radius: 10px !important;
+  cursor: pointer !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.admin-layout .btn-logout:hover {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.25) 0%, rgba(220, 38, 38, 0.25) 100%) !important;
+  color: #ef4444 !important;
+  border-color: rgba(239, 68, 68, 0.4) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3) !important;
+}
+
+/* MAIN CONTENT */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f8fafc;
+  overflow: hidden;
+}
+
+.topbar {
+  background: white;
+  padding: 15px 25px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+}
+
+.btn-toggle-sidebar {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+  padding: 5px;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  flex: 1;
+  color: #1f2937;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.user-info i {
+  font-size: 24px;
+}
+
+.content {
+  flex: 1;
+  padding: 25px;
+  overflow-y: auto;
+  background: #f8fafc;
+}
+
+/* FORMULAIRES */
+.edit-page {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  max-width: 1200px;
+}
+
+.edit-page h2 {
+  margin: 0 0 10px 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin: 0 0 30px 0;
+  font-size: 14px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px !important;
+}
+
+.form-group label {
+  display: block !important;
+  margin-bottom: 8px !important;
+  font-weight: 600 !important;
+  color: #374151 !important;
+  font-size: 14px !important;
+}
+
+.form-control {
+  width: 100% !important;
+  padding: 10px 12px !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 5px !important;
+  font-size: 14px !important;
+  color: #1f2937 !important;
+  background: white !important;
+  box-sizing: border-box !important;
+  font-family: inherit !important;
+}
+
+.form-control:focus {
+  outline: none !important;
+  border-color: #667eea !important;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+}
+
+textarea.form-control {
+  resize: vertical !important;
+  font-family: inherit !important;
+  line-height: 1.5 !important;
+}
+
+.message {
+  padding: 12px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #6ee7b7;
+  font-size: 14px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+/* BOUTONS */
+.admin-layout .btn {
+  padding: 12px 24px !important;
+  border: none !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  transition: all 0.3s !important;
+  box-sizing: border-box !important;
+  line-height: 1.4 !important;
+}
+
+.admin-layout .btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+}
+
+.admin-layout .btn-primary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3) !important;
+}
+
+.admin-layout .btn-secondary {
+  background: #6b7280 !important;
+  color: white !important;
+}
+
+.admin-layout .btn-secondary:hover {
+  background: #4b5563 !important;
+}
+
+.admin-layout .btn:disabled {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+.admin-layout .btn-sm {
+  padding: 8px 16px !important;
+  font-size: 13px !important;
+}
+
+/* TABLEAUX */
+.data-table {
+  width: 100%;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.data-table thead {
+  background: #f8fafc;
+}
+
+.data-table th,
+.data-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+  color: #1f2937;
+  font-size: 14px;
+}
+
+.data-table th {
+  font-weight: 600;
+  color: #374151;
+}
+
+.data-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* DASHBOARD */
+/* Utilise les styles de backoffice.css et dashboard.component.css */
+
+/* UTILITAIRES */
+.text-center {
+  text-align: center !important;
+}
+
+.mt-20 {
+  margin-top: 20px !important;
+}
+
+.mb-20 {
+  margin-bottom: 20px !important;
+}
+
+/* INPUT CHECKBOX/RADIO */
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto;
+  margin-right: 8px;
+}
+
+/* SELECT */
+select.form-control {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 35px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .sidebar {
+    position: fixed;
+    left: -260px;
+    height: 100vh;
+    z-index: 1000;
+    transition: left 0.3s;
+  }
+  
+  .sidebar-closed .sidebar {
+    left: 0;
+  }
+}

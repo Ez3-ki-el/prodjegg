@@ -1,0 +1,70 @@
+<div class="admin-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <iconify-icon icon="bxs:camera-movie"></iconify-icon>
+      <h2>Prodjegg</h2>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a routerLink="/admin/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <iconify-icon icon="bx:home"></iconify-icon>
+        <span>Tableau de bord</span>
+      </a>
+      <a routerLink="/admin/hero" routerLinkActive="active">
+        <iconify-icon icon="bx:user"></iconify-icon>
+        <span>Section Héro</span>
+      </a>
+      <a routerLink="/admin/about" routerLinkActive="active">
+        <iconify-icon icon="bx:info-circle"></iconify-icon>
+        <span>À propos</span>
+      </a>
+      <a routerLink="/admin/services" routerLinkActive="active">
+        <iconify-icon icon="bx:briefcase"></iconify-icon>
+        <span>Services</span>
+      </a>
+      <a routerLink="/admin/portfolio" routerLinkActive="active">
+        <iconify-icon icon="bx:images"></iconify-icon>
+        <span>Portfolio</span>
+      </a>
+      <a routerLink="/admin/testimonials" routerLinkActive="active">
+        <iconify-icon icon="bx:message-rounded-dots"></iconify-icon>
+        <span>Témoignages</span>
+      </a>
+      <a routerLink="/admin/stats" routerLinkActive="active">
+        <iconify-icon icon="bx:bar-chart"></iconify-icon>
+        <span>Stats</span>
+      </a>
+      <a routerLink="/admin/skills" routerLinkActive="active">
+        <iconify-icon icon="bx:code-alt"></iconify-icon>
+        <span>Compétences</span>
+      </a>
+      <a routerLink="/admin/cta" routerLinkActive="active">
+        <iconify-icon icon="bx:phone"></iconify-icon>
+        <span>Contact</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button (click)="logout()" class="btn-logout">
+        <iconify-icon icon="bx:log-out"></iconify-icon>
+        <span>Déconnexion</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="topbar">
+      <h1>Backoffice Admin</h1>
+      <div class="user-badge">
+        <iconify-icon icon="bx:user-circle"></iconify-icon>
+        <span>{{username}}</span>
+      </div>
+    </div>
+
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

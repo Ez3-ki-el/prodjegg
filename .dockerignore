@@ -1,0 +1,68 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+README.md
+DEMARRAGE.md
+DEPLOYMENT.md
+INSTRUCTIONS.md
+*.md
+
+# VS Code / Visual Studio
+.vscode/
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Node modules
+node_modules/
+ClientApp/node_modules/
+ClientApp/.angular/
+ClientApp/dist/
+ClientApp/tmp/
+
+# Test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
+
+# Uploads (local dev)
+wwwroot/uploads/
+
+# Batch files
+*.bat
+
+# Aspire
+Prodjegg.AppHost/
+
+# Package files
+*.nupkg
+*.snupkg
+packages/
+paket-files/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini

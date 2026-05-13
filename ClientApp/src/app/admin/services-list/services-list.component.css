@@ -1,0 +1,77 @@
+/* ================================================
+   SERVICES LIST - STYLES AMÉLIORÉS
+   ================================================ */
+
+/* Utilise les styles globaux de backoffice.css */
+
+/* Styles pour les icônes de service */
+.data-table .service-icon iconify-icon {
+  font-size: 32px;
+  color: #667eea;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-block;
+  filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.3));
+}
+
+.data-table tbody tr:hover .service-icon iconify-icon {
+  transform: scale(1.25) rotate(-10deg);
+  filter: drop-shadow(0 4px 10px rgba(102, 126, 234, 0.6));
+}
+
+/* Titre du service */
+.data-table .service-title {
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 16px;
+}
+
+/* Description tronquée */
+.data-table .truncated-content {
+  color: #64748b;
+  font-size: 14px;
+  max-width: 320px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.data-table tbody tr:hover .truncated-content {
+  color: #475569;
+}
+
+/* Badge ordre */
+.data-table .order-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 12px;
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  border: 2px solid #cbd5e1;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  color: #475569;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.data-table tbody tr:hover .order-badge {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #667eea;
+  color: white;
+  transform: scale(1.12) rotate(-8deg);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.empty-state p {
+  color: #64748b;
+  margin-bottom: 20px;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #64748b;
+}

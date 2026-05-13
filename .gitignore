@@ -1,0 +1,41 @@
+# ========================================
+# .gitignore pour Prodjegg
+# ========================================
+
+# Secrets & Configs
+appsettings.Development.json
+*.user
+*.suo
+
+# Build outputs
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio
+.vs/
+.vscode/
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
+
+# Uploads (local dev)
+wwwroot/uploads/
+Prodjegg.ApiService/wwwroot/uploads/
+
+# Node modules
+ClientApp/node_modules/
+ClientApp/.angular/
+ClientApp/dist/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temp files
+*.tmp
+*.bak
+*.swp

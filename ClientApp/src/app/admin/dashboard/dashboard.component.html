@@ -1,0 +1,76 @@
+<div class="dashboard">
+  <h2>Tableau de bord</h2>
+  <p class="subtitle">Gérez facilement tout le contenu de votre portfolio</p>
+
+  <div class="stats-grid" *ngIf="!isLoading">
+    <div class="stat-card">
+      <div class="stat-icon blue">
+        <iconify-icon icon="bx:briefcase"></iconify-icon>
+      </div>
+      <div class="stat-info">
+        <h3>{{ stats.services }}</h3>
+        <p>Services</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon purple">
+        <iconify-icon icon="bx:images"></iconify-icon>
+      </div>
+      <div class="stat-info">
+        <h3>{{ stats.portfolioItems }}</h3>
+        <p>Portfolio Items</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon green">
+        <iconify-icon icon="bx:message-rounded-dots"></iconify-icon>
+      </div>
+      <div class="stat-info">
+        <h3>{{ stats.testimonials }}</h3>
+        <p>Testimonials</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon orange">
+        <iconify-icon icon="bx:code-alt"></iconify-icon>
+      </div>
+      <div class="stat-info">
+        <h3>{{ stats.skills }}</h3>
+        <p>Skills</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="quick-actions">
+    <h3>Actions rapides</h3>
+    <div class="actions-grid">
+      <a href="#" class="action-card">
+        <iconify-icon icon="bx:user"></iconify-icon>
+        <span>Modifier Hero Section</span>
+      </a>
+      <a href="#" class="action-card">
+        <iconify-icon icon="bx:plus"></iconify-icon>
+        <span>Ajouter Service</span>
+      </a>
+      <a href="#" class="action-card">
+        <iconify-icon icon="bx:image-add"></iconify-icon>
+        <span>Ajouter Portfolio</span>
+      </a>
+      <a href="#" class="action-card">
+        <iconify-icon icon="bx:message-add"></iconify-icon>
+        <span>Ajouter Testimonial</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="welcome-message">
+    <iconify-icon icon="bx:info-circle"></iconify-icon>
+    <div>
+      <h4>Bienvenue sur votre backoffice!</h4>
+      <p>Utilisez le menu latéral pour naviguer et modifier les différentes sections de votre portfolio.</p>
+    </div>
+  </div>
+</div>

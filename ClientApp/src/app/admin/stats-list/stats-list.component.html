@@ -1,0 +1,42 @@
+<div class="list-page">
+  <div class="page-header">
+    <h2>Statistiques</h2>
+    <button class="btn btn-primary" routerLink="/admin/stats/new">
+      <iconify-icon icon="bx:plus"></iconify-icon> Ajouter une statistique
+    </button>
+  </div>
+
+  <div class="loading" *ngIf="loading">Chargement...</div>
+
+  <table class="data-table" *ngIf="!loading && stats.length > 0">
+    <thead>
+      <tr>
+        <th>Label</th>
+        <th>Valeur</th>
+        <th>Ordre</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let stat of stats">
+        <td class="stat-label">{{ stat.label }}</td>
+        <td><span class="stat-value">{{ stat.value }}</span></td>
+        <td><span class="order-badge">{{ stat.order }}</span></td>
+        <td class="actions">
+          <button class="btn-icon" [routerLink]="['/admin/stats/edit', stat.id]" title="Modifier">
+            <iconify-icon icon="bxs:edit"></iconify-icon>
+          </button>
+          <button class="btn-icon delete" (click)="deleteStat(stat.id)" title="Supprimer">
+            <iconify-icon icon="bx:trash"></iconify-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="empty-state" *ngIf="!loading && stats.length === 0">
+    <iconify-icon icon="bx:bar-chart"></iconify-icon>
+    <p>Aucune statistique trouvée</p>
+    <button class="btn btn-primary" routerLink="/admin/stats/new">Ajouter la première statistique</button>
+  </div>
+</div>

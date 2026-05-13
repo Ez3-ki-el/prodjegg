@@ -1,0 +1,55 @@
+<div class="list-page">
+  <div class="page-header">
+    <h2>Témoignages</h2>
+    <button class="btn btn-primary" routerLink="/admin/testimonials/new">
+      <iconify-icon icon="bx:plus"></iconify-icon> Ajouter un témoignage
+    </button>
+  </div>
+
+  <div class="loading" *ngIf="loading">Chargement...</div>
+
+  <table class="data-table" *ngIf="!loading && testimonials.length > 0">
+    <thead>
+      <tr>
+        <th>Client</th>
+        <th>Titre</th>
+        <th>Contenu</th>
+        <th>Note</th>
+        <th>Ordre</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let testimonial of testimonials">
+        <td>
+          <div class="client-info">
+            <img [src]="testimonial.clientImagePath" alt="{{ testimonial.clientName }}" class="client-avatar" />
+            <span class="client-name">{{ testimonial.clientName }}</span>
+          </div>
+        </td>
+        <td><span class="client-title">{{ testimonial.clientTitle }}</span></td>
+        <td><span class="truncated-content">{{ testimonial.content | slice:0:50 }}...</span></td>
+        <td>
+          <div class="rating-stars">
+            <iconify-icon *ngFor="let star of getStars(testimonial.rating)" [attr.icon]="star"></iconify-icon>
+          </div>
+        </td>
+        <td>{{ testimonial.order }}</td>
+        <td class="actions">
+          <button class="btn-icon" [routerLink]="['/admin/testimonials/edit', testimonial.id]" title="Modifier">
+            <iconify-icon icon="bxs:edit"></iconify-icon>
+          </button>
+          <button class="btn-icon delete" (click)="deleteTestimonial(testimonial.id)" title="Supprimer">
+            <iconify-icon icon="bx:trash"></iconify-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="empty-state" *ngIf="!loading && testimonials.length === 0">
+    <iconify-icon icon="bx:message-rounded-dots"></iconify-icon>
+    <p>Aucun témoignage trouvé</p>
+    <button class="btn btn-primary" routerLink="/admin/testimonials/new">Ajouter le premier témoignage</button>
+  </div>
+</div>

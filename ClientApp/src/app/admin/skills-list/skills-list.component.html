@@ -1,0 +1,49 @@
+<div class="list-page">
+  <div class="page-header">
+    <h2>Compétences</h2>
+    <button class="btn btn-primary" routerLink="/admin/skills/new">
+      <iconify-icon icon="bx:plus"></iconify-icon> Ajouter une compétence
+    </button>
+  </div>
+
+  <div class="loading" *ngIf="loading">Chargement...</div>
+
+  <table class="data-table" *ngIf="!loading && skills.length > 0">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Niveau</th>
+        <th>Ordre</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let skill of skills">
+        <td>{{ skill.name }}</td>
+        <td>
+          <div class="progress-bar-container">
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" [style.width.%]="skill.percentage"></div>
+            </div>
+            <span class="progress-percentage">{{ skill.percentage }}%</span>
+          </div>
+        </td>
+        <td>{{ skill.order }}</td>
+        <td class="actions">
+          <button class="btn-icon" [routerLink]="['/admin/skills/edit', skill.id]" title="Modifier">
+            <iconify-icon icon="bxs:edit"></iconify-icon>
+          </button>
+          <button class="btn-icon delete" (click)="deleteSkill(skill.id)" title="Supprimer">
+            <iconify-icon icon="bx:trash"></iconify-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="empty-state" *ngIf="!loading && skills.length === 0">
+    <iconify-icon icon="bx:code-alt"></iconify-icon>
+    <p>Aucune compétence trouvée</p>
+    <button class="btn btn-primary" routerLink="/admin/skills/new">Ajouter la première compétence</button>
+  </div>
+</div>

@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Prodjegg.ApiService/Prodjegg.ApiService.csproj" />
+  <Project Path="Prodjegg.AppHost/Prodjegg.AppHost.csproj" />
+  <Project Path="Prodjegg.Data/Prodjegg.Data.csproj" Id="f040e6ed-b004-4390-9953-5cdecaa1345c" />
+  <Project Path="Prodjegg.ServiceDefaults/Prodjegg.ServiceDefaults.csproj" />
+</Solution>

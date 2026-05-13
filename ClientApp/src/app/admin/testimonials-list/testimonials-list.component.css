@@ -1,0 +1,99 @@
+/* ================================================
+   TESTIMONIALS LIST - STYLES AMÉLIORÉS
+   ================================================ */
+
+/* Utilise les styles globaux de backoffice.css */
+
+/* Styles pour les informations client */
+.data-table .client-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.data-table .client-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e2e8f0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.data-table tbody tr:hover .client-avatar {
+  border-color: #667eea;
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.35);
+  transform: scale(1.08) rotate(-3deg);
+}
+
+.data-table .client-name {
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 15px;
+}
+
+/* Styles pour les étoiles */
+.data-table .rating-stars {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.data-table .rating-stars i,
+.data-table .rating-stars iconify-icon {
+  color: #fbbf24;
+  font-size: 20px;
+  filter: drop-shadow(0 2px 3px rgba(251, 191, 36, 0.4));
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.data-table tbody tr:hover .rating-stars i,
+.data-table tbody tr:hover .rating-stars iconify-icon {
+  transform: scale(1.2) rotate(15deg);
+  filter: drop-shadow(0 2px 6px rgba(251, 191, 36, 0.6));
+}
+
+.data-table tbody tr:hover .rating-stars i:nth-child(2),
+.data-table tbody tr:hover .rating-stars iconify-icon:nth-child(2) {
+  transition-delay: 0.05s;
+}
+
+.data-table tbody tr:hover .rating-stars i:nth-child(3),
+.data-table tbody tr:hover .rating-stars iconify-icon:nth-child(3) {
+  transition-delay: 0.1s;
+}
+
+.data-table tbody tr:hover .rating-stars i:nth-child(4),
+.data-table tbody tr:hover .rating-stars iconify-icon:nth-child(4) {
+  transition-delay: 0.15s;
+}
+
+.data-table tbody tr:hover .rating-stars i:nth-child(5),
+.data-table tbody tr:hover .rating-stars iconify-icon:nth-child(5) {
+  transition-delay: 0.2s;
+}
+
+/* Texte tronqué pour le contenu */
+.data-table .truncated-content {
+  max-width: 280px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.5;
+  transition: color 0.3s;
+}
+
+.data-table tbody tr:hover .truncated-content {
+  color: #475569;
+}
+
+/* Titre du client */
+.data-table .client-title {
+  color: #64748b;
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 500;
+}

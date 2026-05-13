@@ -1,0 +1,44 @@
+<div class="list-page">
+  <div class="page-header">
+    <h2>Services</h2>
+    <button class="btn btn-primary" routerLink="/admin/services/new">
+      <iconify-icon icon="bx:plus"></iconify-icon> Ajouter un service
+    </button>
+  </div>
+
+  <div class="loading" *ngIf="loading">Chargement...</div>
+
+  <table class="data-table" *ngIf="!loading && services.length > 0">
+    <thead>
+      <tr>
+        <th>Icône</th>
+        <th>Titre</th>
+        <th>Description</th>
+        <th>Ordre</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let service of services">
+        <td class="service-icon"><iconify-icon [attr.icon]="getIconifyIcon(service.iconClass)"></iconify-icon></td>
+        <td class="service-title">{{ service.title }}</td>
+        <td class="truncated-content">{{ service.description | slice:0:50 }}...</td>
+        <td><span class="order-badge">{{ service.order }}</span></td>
+        <td class="actions">
+          <button class="btn-icon" [routerLink]="['/admin/services/edit', service.id]" title="Modifier">
+            <iconify-icon icon="bxs:edit"></iconify-icon>
+          </button>
+          <button class="btn-icon delete" (click)="deleteService(service.id)" title="Supprimer">
+            <iconify-icon icon="bx:trash"></iconify-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="empty-state" *ngIf="!loading && services.length === 0">
+    <iconify-icon icon="bx:briefcase"></iconify-icon>
+    <p>Aucun service trouvé</p>
+    <button class="btn btn-primary" routerLink="/admin/services/new">Ajouter le premier service</button>
+  </div>
+</div>

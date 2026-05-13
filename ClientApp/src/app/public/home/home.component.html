@@ -1,0 +1,269 @@
+<div *ngIf="isLoading" class="loading-spinner">
+  <div class="spinner"></div>
+</div>
+
+<div *ngIf="!isLoading">
+  <!-- HEADER & NAVIGATION -->
+  <header>
+    <nav class="glass-nav">
+      <div class="nav-container">
+        <div class="logo-group">
+          <a href="#" class="logo">
+            <iconify-icon icon="bxs:camera-movie"></iconify-icon>
+            <span class="title">Prod.jegg</span>
+          </a>
+        </div>
+
+        <div class="menu-toggle" (click)="toggleMobileMenu()">
+          <iconify-icon icon="bx:menu"></iconify-icon>
+        </div>
+
+        <div class="nav-links" [class.active]="mobileMenuOpen">
+          <a href="#about">A propos de moi</a>
+          <a href="#services">Services</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#testimonials">Avis</a>
+          <a href="#skills">Compétences</a>
+          <a href="#cta">Contact</a>
+          <a [href]="cta?.email ? 'mailto:' + cta!.email : '#'" class="btn btn-primary nav-cta">Me contacter</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-container" *ngIf="hero">
+      <div class="hero-text">
+        <span class="intro-badge">👋 Hey c'est moi</span>
+        <h1>{{ hero.fullName }}</h1>
+        <h2>{{ hero.title }}</h2>
+        <p>{{ hero.description }}</p>
+
+        <div class="hero-buttons">
+          <a href="#cta" class="btn btn-secondary btn-lg">ENGAGEZ MOI</a>
+          <a href="#portfolio" class="btn btn-primary btn-lg">VOIR MES PROJETS</a>
+        </div>
+
+        <div class="hero-social">
+          <a *ngIf="hero.facebookUrl" [href]="hero.facebookUrl"><iconify-icon icon="bxl:facebook"></iconify-icon></a>
+          <a *ngIf="hero.twitterUrl" [href]="hero.twitterUrl"><iconify-icon icon="bxl:twitter"></iconify-icon></a>
+          <a *ngIf="hero.instagramUrl" [href]="hero.instagramUrl"><iconify-icon icon="bxl:instagram"></iconify-icon></a>
+          <a *ngIf="hero.youtubeUrl" [href]="hero.youtubeUrl"><iconify-icon icon="bxl:youtube"></iconify-icon></a>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <div class="hero-bg-shape"></div>
+        <img [src]="hero.imagePath" [alt]="hero.fullName" loading="eager" />
+      </div>
+    </div>
+
+    <div class="scroll-down-indicator">
+      <span></span>
+    </div>
+  </header>
+
+  <main>
+    <!-- ABOUT SECTION -->
+    <section id="about" *ngIf="about">
+      <div class="container">
+        <h2>{{ about.title }}</h2>
+        <p class="subtitle">{{ about.subtitle }}</p>
+        <div class="divider"></div>
+        <p>{{ about.paragraph1 }}</p>
+        <p>{{ about.paragraph2 }}</p>
+        <p>{{ about.paragraph3 }}</p>
+        <a href="#portfolio" class="btn-link">Voir mes réalisations</a>
+      </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="services">
+      <h2>Ce que je fais</h2>
+      <p class="subtitle">Des services vidéo professionnels adaptés à vos besoins</p>
+      <div class="divider"></div>
+
+      <div class="service-cards">
+        <div class="card" *ngFor="let service of services">
+          <iconify-icon [attr.icon]="getIconifyIcon(service.iconClass)"></iconify-icon>
+          <h3>{{ service.title }}</h3>
+          <p>{{ service.description }}</p>
+        </div>
+      </div>
+      <a href="#portfolio" class="btn-link">Voir tous les projets</a>
+    </section>
+
+    <!-- PORTFOLIO SECTION -->
+    <section id="portfolio">
+      <h2>Mon Portfolio</h2>
+      <p class="subtitle">Une vitrine de projets créatifs et de collaborations réussies</p>
+      <div class="divider"></div>
+
+      <div class="portfolio-filter">
+        <a href="javascript:void(0)" *ngFor="let category of categories" [class.active]="selectedCategory === category"
+          (click)="filterPortfolio(category)">
+          {{ category }}
+        </a>
+      </div>
+
+      <div class="portfolio-gallery">
+        <ng-container *ngFor="let item of filteredPortfolioItems">
+          <article *ngIf="item.projectUrl && isInstagramUrl(item.projectUrl)" class="portfolio-item instagram-item">
+            <span class="insta-badge">
+              <iconify-icon icon="bxl:instagram"></iconify-icon>
+              Reel Instagram
+            </span>
+            <div class="instagram-frame">
+              <iframe class="instagram-embed" [src]="getInstagramEmbedUrl(item.projectUrl)" [title]="item.title"
+                loading="lazy" scrolling="no" allowfullscreen>
+              </iframe>
+            </div>
+            <div class="portfolio-overlay always-visible">
+              <span class="portfolio-title">{{ item.title }}</span>
+              <a [href]="item.projectUrl" target="_blank" rel="noopener noreferrer" class="portfolio-link insta-cta">
+                <iconify-icon icon="bxl:instagram"></iconify-icon>
+                Voir sur Instagram
+              </a>
+            </div>
+          </article>
+
+          <a *ngIf="item.projectUrl && !isInstagramUrl(item.projectUrl)" [href]="item.projectUrl" target="_blank"
+            rel="noopener noreferrer" class="portfolio-item">
+            <img [src]="item.imagePath" [alt]="item.title" loading="lazy" />
+            <div class="portfolio-overlay">
+              <span class="portfolio-title">{{ item.title }}</span>
+              <span class="portfolio-link"><iconify-icon icon="bx:link-external"></iconify-icon> Voir le projet</span>
+            </div>
+          </a>
+          <div *ngIf="!item.projectUrl" class="portfolio-item no-link">
+            <img [src]="item.imagePath" [alt]="item.title" loading="lazy" />
+            <div class="portfolio-overlay">
+              <span class="portfolio-title">{{ item.title }}</span>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section id="testimonials">
+      <h2>Ce que disent mes clients</h2>
+      <p class="subtitle">La confiance de créateurs, marques et entreprises</p>
+      <div class="divider"></div>
+
+      <div class="testimonials-container">
+        <div class="testimonial-card" *ngFor="let testimonial of testimonials">
+          <div class="stars">
+            <iconify-icon *ngFor="let star of getStarArray(testimonial.rating)" icon="bxs:star"></iconify-icon>
+          </div>
+          <p>{{ testimonial.content }}</p>
+          <div class="client-info">
+            <img [src]="testimonial.clientImagePath" [alt]="testimonial.clientName" loading="lazy" />
+            <div>
+              <h4>{{ testimonial.clientName }}</h4>
+              <span>{{ testimonial.clientTitle }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATISTICS SECTION -->
+    <section id="stats">
+      <div class="container">
+        <div class="stats-container">
+          <div class="stat-item" *ngFor="let stat of stats">
+            <div class="stat-number" [attr.data-target]="stat.value">{{ stat.value }}</div>
+            <h3>{{ stat.label }}</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills">
+      <h2>Compétences techniques</h2>
+      <p class="subtitle">Expertise sur les logiciels et techniques créatives de référence</p>
+      <div class="divider"></div>
+
+      <div class="skills-container">
+        <div class="skills-text">
+          <p>
+            Avec des années d'expérience pratique, j'ai maîtrisé l'art de la
+            production vidéo en utilisant des logiciels de pointe et des techniques
+            innovantes. Mon expertise technique couvre toutes les principales
+            plateformes de montage et outils créatifs.
+          </p>
+          <p>
+            De l'étalonnage colorimétrique qui apporte une profondeur cinématographique
+            au motion design qui captive les audiences, je combine précision technique
+            et vision créative pour offrir des résultats exceptionnels à chaque projet.
+          </p>
+          <p>
+            Je me tiens constamment à jour des dernières tendances du secteur et
+            j'enrichis continuellement mes compétences pour vous proposer les solutions
+            vidéo les plus actuelles et efficaces pour vos projets.
+          </p>
+          <a href="#cta" class="btn-link">Collaborons ensemble</a>
+        </div>
+
+        <div class="skills-bars">
+          <div class="skill" *ngFor="let skill of skills">
+            <p>{{ skill.name }}</p>
+            <div class="bar">
+              <div class="progress" [style.width.%]="skill.percentage"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALL-TO-ACTION SECTION -->
+    <section id="cta" *ngIf="cta">
+      <div class="container">
+        <div class="cta-container">
+          <div class="cta-image">
+            <img [src]="cta.imagePath" alt="Espace de production vidéo créatif" loading="lazy" />
+          </div>
+
+          <div class="cta-text">
+            <h2 [innerHTML]="cta.title"></h2>
+            <p>{{ cta.description }}</p>
+
+            <div style="margin-top: 30px">
+              <a [href]="'mailto:' + cta.email" class="btn btn-secondary btn-lg" style="margin-right: 15px">Me
+                contacter</a>
+              <a [href]="'tel:' + cta.phoneNumber" class="btn btn-primary btn-lg">Appeler maintenant</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER SECTION -->
+  <footer>
+    <div class="footer-container">
+      <div class="logo-group">
+        <a href="#" class="logo">
+          <img class="logo-mark" src="assets/images/prodjegg-BAVqhQUU.png" />
+          <span class="title">Prod.jegg</span>
+        </a>
+      </div>
+
+      <div class="footer-copyright">
+        <p>Copyright © {{ currentYear }} François Robin Jego - Tous droits réservés</p>
+      </div>
+
+      <div class="footer-social" *ngIf="hero">
+        <a *ngIf="hero.facebookUrl" [href]="hero.facebookUrl" target="_blank" aria-label="Facebook"><iconify-icon
+            icon="bxl:facebook"></iconify-icon></a>
+        <a *ngIf="hero.twitterUrl" [href]="hero.twitterUrl" target="_blank" aria-label="Twitter"><iconify-icon
+            icon="bxl:twitter"></iconify-icon></a>
+        <a *ngIf="hero.instagramUrl" [href]="hero.instagramUrl" target="_blank" aria-label="Instagram"><iconify-icon
+            icon="bxl:instagram"></iconify-icon></a>
+        <a *ngIf="hero.youtubeUrl" [href]="hero.youtubeUrl" target="_blank" aria-label="YouTube"><iconify-icon
+            icon="bxl:youtube"></iconify-icon></a>
+      </div>
+    </div>
+  </footer>
+</div>

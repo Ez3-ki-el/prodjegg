@@ -1,0 +1,13 @@
+<div style="background: red; color: white; padding: 50px; font-size: 32px; margin: 20px;">
+  🔴 TEST ROUGE - SI TU VOIS ÇA, ANGULAR FONCTIONNE ! 🔴
+</div>
+
+<div class="edit-page">
+  <h2 style="color: blue; font-size: 48px;">TEST BLEU</h2>
+  <p style="color: green; font-size: 24px;">TEST VERT</p>
+  
+  <form>
+    <input type="text" value="TEST INPUT" style="border: 5px solid red; padding: 20px; font-size: 24px;" />
+    <button style="background: purple; color: white; padding: 20px; font-size: 24px;">TEST BUTTON</button>
+  </form>
+</div>

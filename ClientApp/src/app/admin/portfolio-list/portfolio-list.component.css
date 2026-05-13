@@ -1,0 +1,54 @@
+/* ================================================
+   PORTFOLIO LIST - STYLES AMÉLIORÉS
+   ================================================ */
+
+/* Utilise les styles globaux de backoffice.css */
+
+/* Styles pour les images de portfolio */
+.data-table .portfolio-thumbnail {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 3px solid #e2e8f0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.data-table tbody tr:hover .portfolio-thumbnail {
+  border-color: #667eea;
+  box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+  transform: scale(1.15) rotate(-2deg);
+}
+
+/* Titre du projet */
+.data-table .project-title {
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 15px;
+}
+
+/* Badge de catégorie */
+.data-table .category-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  border: 2px solid #cbd5e1;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s;
+}
+
+.data-table tbody tr:hover .category-badge {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #667eea;
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+

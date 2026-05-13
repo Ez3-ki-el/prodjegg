@@ -1,0 +1,48 @@
+<div class="edit-page">
+  <h2>{{ isEditMode ? 'Modifier' : 'Ajouter' }} une compétence</h2>
+  
+  <form [formGroup]="skillForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Nom de la compétence</label>
+        <input type="text" formControlName="name" class="form-control" placeholder="Ex: Adobe Premiere Pro" />
+      </div>
+
+      <div class="form-group">
+        <label>Niveau de maîtrise (%)</label>
+        <input type="number" formControlName="percentage" class="form-control" 
+               placeholder="Ex: 90" min="0" max="100" />
+        <small>Valeur entre 0 et 100</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Ordre d'affichage</label>
+      <input type="number" formControlName="order" class="form-control" />
+    </div>
+
+    <!-- Prévisualisation -->
+    <div class="form-group preview-section" *ngIf="skillForm.get('percentage')?.value > 0">
+      <label>Prévisualisation</label>
+      <div class="skill-preview">
+        <div class="skill-preview-name">
+          {{ skillForm.get('name')?.value || 'Nom de la compétence' }}
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" [style.width.%]="skillForm.get('percentage')?.value"></div>
+          </div>
+          <span class="progress-percentage">{{ skillForm.get('percentage')?.value }}%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="loading || skillForm.invalid">
+        <span *ngIf="!loading">{{ isEditMode ? 'Mettre à jour' : 'Créer' }}</span>
+        <span *ngIf="loading">Enregistrement...</span>
+      </button>
+      <button type="button" class="btn btn-secondary" routerLink="/admin/skills">Annuler</button>
+    </div>
+  </form>
+</div>

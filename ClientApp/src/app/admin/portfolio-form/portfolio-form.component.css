@@ -1,0 +1,7 @@
+/* Styles globaux dans admin-global.css */
+small {
+  color: #6b7280;
+  font-size: 12px;
+  display: block;
+  margin-top: 4px;
+}

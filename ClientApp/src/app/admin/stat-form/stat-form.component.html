@@ -1,0 +1,40 @@
+<div class="edit-page">
+  <h2>{{ isEditMode ? 'Modifier' : 'Ajouter' }} une statistique</h2>
+  
+  <form [formGroup]="statForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Label</label>
+        <input type="text" formControlName="label" class="form-control" placeholder="Ex: Projets Complétés" />
+      </div>
+
+      <div class="form-group">
+        <label>Valeur (chiffre)</label>
+        <input type="number" formControlName="value" class="form-control" placeholder="Ex: 150" />
+        <small>Un "+" sera automatiquement ajouté à l'affichage</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Ordre d'affichage</label>
+      <input type="number" formControlName="order" class="form-control" />
+    </div>
+
+    <!-- Prévisualisation -->
+    <div class="form-group" *ngIf="statForm.get('value')?.value">
+      <label>Prévisualisation</label>
+      <div class="stat-preview">
+        <div class="stat-preview-value">{{ statForm.get('value')?.value }}+</div>
+        <div class="stat-preview-label">{{ statForm.get('label')?.value || 'Label de la statistique' }}</div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="loading || statForm.invalid">
+        <span *ngIf="!loading">{{ isEditMode ? 'Mettre à jour' : 'Créer' }}</span>
+        <span *ngIf="loading">Enregistrement...</span>
+      </button>
+      <button type="button" class="btn btn-secondary" routerLink="/admin/stats">Annuler</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,37 @@
+# ========================================
+# Configuration Render.com
+# ========================================
+
+services:
+  # Backend + Frontend (containerisé)
+  - type: web
+    name: prodjegg
+    runtime: docker
+    region: frankfurt  # Ou oregon, singapore selon votre localisation
+    plan: free  # Changez en 'starter' pour un service toujours actif (7$/mois)
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: Database__Provider
+        value: Postgres
+      - key: ConnectionStrings__DefaultConnection
+        fromDatabase:
+          name: prodjegg-db
+          property: connectionString
+      - key: Jwt__Key
+        generateValue: true  # Génère une clé aléatoire sécurisée
+      - key: Jwt__Issuer
+        value: ProdjeggApi
+      - key: Jwt__Audience
+        value: ProdjeggClient
+      - key: ASPNETCORE_URLS
+        value: http://+:8080
+    healthCheckPath: /health
+
+databases:
+  # PostgreSQL Database
+  - name: prodjegg-db
+    databaseName: prodjeggDB
+    plan: free  # Gratuit pour 90 jours, puis 7$/mois
+    region: frankfurt  # Même région que le service web

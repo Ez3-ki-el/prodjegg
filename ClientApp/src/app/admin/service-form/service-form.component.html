@@ -1,0 +1,51 @@
+<div class="edit-page">
+  <h2>{{ isEditMode ? 'Modifier' : 'Ajouter' }} un service</h2>
+
+  <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Titre</label>
+      <input type="text" formControlName="title" class="form-control" placeholder="Ex: Video Editing" />
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <textarea formControlName="description" class="form-control" rows="4"
+        placeholder="Description du service..."></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Icône (Iconify)</label>
+        <input type="text" formControlName="iconClass" class="form-control" placeholder="Ex: bxs:video"
+          (blur)="normalizeIconInput()" />
+
+        <div class="icon-preview">
+          <span class="preview-label">Aperçu</span>
+          <div class="preview-chip">
+            <iconify-icon [attr.icon]="getPreviewIcon()"></iconify-icon>
+            <strong>{{ getPreviewIcon() }}</strong>
+          </div>
+        </div>
+
+        <small>
+          Format recommandé: <b>bxs:video</b>. Formats aussi acceptés: <b>bx bxs-video</b> ou <b>bxs-video</b>
+          (convertis automatiquement). Voir:
+          <a href="https://icon-sets.iconify.design/" target="_blank">icon-sets.iconify.design</a>
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label>Ordre d'affichage</label>
+        <input type="number" formControlName="order" class="form-control" />
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="loading || serviceForm.invalid">
+        <span *ngIf="!loading">{{ isEditMode ? 'Mettre à jour' : 'Créer' }}</span>
+        <span *ngIf="loading">Enregistrement...</span>
+      </button>
+      <button type="button" class="btn btn-secondary" routerLink="/admin/services">Annuler</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,44 @@
+/* 
+ * Copiez le contenu de Prodjegg.ApiService/wwwroot/assets/css/styles.css ici
+ * Ou créez votre propre style
+ */
+
+/* Placeholder - Styles de base */
+:root {
+  --primary-color: #667eea;
+  --secondary-color: #764ba2;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s;
+}
+
+.btn-primary {
+  background: var(--primary-color);
+  color: white;
+}
+
+.btn-secondary {
+  background: var(--secondary-color);
+  color: white;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Ajoutez ici tous les styles de votre site statique */

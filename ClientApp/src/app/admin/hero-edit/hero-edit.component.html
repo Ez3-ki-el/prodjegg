@@ -1,0 +1,79 @@
+<div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); max-width: 1200px;">
+  <h2 style="margin: 0 0 10px 0; font-size: 24px; font-weight: 700; color: #1f2937;">Éditer Hero Section</h2>
+  <p style="color: #6b7280; margin: 0 0 30px 0; font-size: 14px;">Modifiez les informations de la section hero</p>
+
+  <form [formGroup]="heroForm" (ngSubmit)="onSubmit()" *ngIf="heroForm">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #374151; font-size: 14px;">Nom complet</label>
+        <input type="text" formControlName="fullName" placeholder="Votre nom complet"
+               style="width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 5px; font-size: 14px; color: #1f2937; background: white; font-family: inherit;" />
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #374151; font-size: 14px;">Titre</label>
+        <input type="text" formControlName="title" placeholder="Votre titre professionnel"
+               style="width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 5px; font-size: 14px; color: #1f2937; background: white; font-family: inherit;" />
+      </div>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #374151; font-size: 14px;">Description</label>
+      <textarea formControlName="description" rows="4" placeholder="Décrivez votre activité..."
+                style="width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 5px; font-size: 14px; color: #1f2937; background: white; font-family: inherit; resize: vertical; min-height: 80px;"></textarea>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <app-image-upload
+        [currentImage]="heroForm.get('imagePath')?.value"
+        folder="hero"
+        label="Photo de profil"
+        (imageUploaded)="onImageUploaded($event)">
+      </app-image-upload>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #374151; font-size: 14px;">Facebook URL</label>
+        <input type="url" formControlName="facebookUrl" placeholder="https://facebook.com/..."
+               style="width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 5px; font-size: 14px; color: #1f2937; background: white; font-family: inherit;" />
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #374151; font-size: 14px;">Twitter URL</label>
+        <input type="url" formControlName="twitterUrl" placeholder="https://twitter.com/..."
+               style="width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 5px; font-size: 14px; color: #1f2937; background: white; font-family: inherit;" />
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #374151; font-size: 14px;">Instagram URL</label>
+        <input type="url" formControlName="instagramUrl" placeholder="https://instagram.com/..."
+               style="width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 5px; font-size: 14px; color: #1f2937; background: white; font-family: inherit;" />
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #374151; font-size: 14px;">YouTube URL</label>
+        <input type="url" formControlName="youtubeUrl" placeholder="https://youtube.com/..."
+               style="width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 5px; font-size: 14px; color: #1f2937; background: white; font-family: inherit;" />
+      </div>
+    </div>
+
+    <div *ngIf="message" style="padding: 12px; border-radius: 5px; margin-bottom: 20px; background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; font-size: 14px;">
+      {{ message }}
+    </div>
+
+    <div style="display: flex; gap: 10px; margin-top: 30px;">
+      <button type="submit" [disabled]="loading || heroForm.invalid"
+              style="padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 14px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; display: inline-flex; align-items: center; gap: 8px;">
+        <span *ngIf="!loading">Enregistrer les modifications</span>
+        <span *ngIf="loading">Enregistrement en cours...</span>
+      </button>
+      <a routerLink="/admin/dashboard"
+         style="padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 14px; background: #6b7280; color: white; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+        Annuler
+      </a>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,42 @@
+<div class="image-upload">
+  <label class="upload-label">{{ label }}</label>
+
+  <!-- Zone de prévisualisation si une image existe -->
+  <div class="preview" *ngIf="currentImage">
+    <img [src]="currentImage" alt="Aperçu" />
+    <div class="preview-actions">
+      <span class="preview-path">{{ currentImage }}</span>
+      <button type="button" class="btn-remove" (click)="removeImage()">
+        <iconify-icon icon="bx:trash"></iconify-icon> Supprimer
+      </button>
+    </div>
+  </div>
+
+  <!-- Zone de drop / upload -->
+  <div class="drop-zone" 
+       [class.drag-over]="dragOver"
+       [class.has-image]="currentImage"
+       (drop)="onDrop($event)" 
+       (dragover)="onDragOver($event)" 
+       (dragleave)="onDragLeave()">
+    
+    <div *ngIf="!uploading" class="drop-content">
+      <iconify-icon icon="bx:cloud-upload"></iconify-icon>
+      <p>Glissez-déposez une image ici</p>
+      <span>ou</span>
+      <label class="btn-browse" for="file-{{ folder }}">
+        <iconify-icon icon="bx:folder-open"></iconify-icon> Parcourir
+      </label>
+      <input type="file" 
+             [id]="'file-' + folder" 
+             accept="image/jpeg,image/png,image/gif,image/webp" 
+             (change)="onFileSelected($event)" />
+      <small>JPG, PNG, GIF, WebP — Max 5 Mo</small>
+    </div>
+
+    <div *ngIf="uploading" class="uploading">
+      <div class="spinner-small"></div>
+      <p>Téléversement en cours...</p>
+    </div>
+  </div>
+</div>
