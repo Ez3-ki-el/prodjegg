@@ -23,11 +23,12 @@ public static class DbSeeder
 
         // Create default admin user
         var authService = new Services.AuthService(null!);
+        var adminPassword = Environment.GetEnvironmentVariable("ADMIN_DEFAULT_PASSWORD") ?? "admin123";
         db.Users.Add(new User
         {
             Username = "admin",
             Email = "admin@prodjegg.com",
-            PasswordHash = authService.HashPassword("admin123"),
+            PasswordHash = authService.HashPassword(adminPassword),
             CreatedAt = DateTime.UtcNow
         });
 

@@ -27,6 +27,8 @@ services:
         value: ProdjeggClient
       - key: ASPNETCORE_URLS
         value: http://+:8080
+      - key: ADMIN_DEFAULT_PASSWORD
+        sync: false  # À définir manuellement dans le dashboard Render (ne jamais mettre la valeur ici)
     healthCheckPath: /health
 
 databases:
