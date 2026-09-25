@@ -184,7 +184,13 @@ header {
   width: 100%;
   padding: 20px 0;
   background: rgba(0, 0, 0, 0.9);
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
+  /* Forces .glass-nav to be the containing block for its fixed .nav-links child
+     on every engine. Without it, Safari doesn't treat backdrop-filter alone as
+     establishing a containing block, so .nav-links' `top: 100%` resolves against
+     the viewport instead of the nav bar and the mobile menu opens off-screen. */
+  transform: translateZ(0);
   border-bottom: 1px solid rgba(255, 215, 0, 0.1);
   z-index: 1000;
   transition: var(--transition);
@@ -1114,6 +1120,7 @@ footer {
     left: 0;
     width: 100%;
     background: rgba(0, 0, 0, 0.95);
+    -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
     flex-direction: column;
     padding: 40px 20px;
