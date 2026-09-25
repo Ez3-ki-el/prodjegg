@@ -29,6 +29,7 @@ public static class DbSeeder
             Username = "admin",
             Email = "admin@prodjegg.com",
             PasswordHash = authService.HashPassword(adminPassword),
+            Role = "Admin",
             CreatedAt = DateTime.UtcNow
         });
 

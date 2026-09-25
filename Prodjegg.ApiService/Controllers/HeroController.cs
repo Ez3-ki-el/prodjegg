@@ -41,7 +41,7 @@ public class HeroController : ControllerBase
         });
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPut]
     public async Task<ActionResult<HeroSectionDto>> Update([FromBody] HeroSectionDto dto)
     {

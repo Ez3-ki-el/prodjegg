@@ -10,7 +10,7 @@ public interface IAuthService
 {
     string HashPassword(string password);
     bool VerifyPassword(string password, string hash);
-    string GenerateJwtToken(string username, int userId);
+    string GenerateJwtToken(string username, int userId, string role);
 }
 
 public class AuthService : IAuthService
@@ -35,7 +35,7 @@ public class AuthService : IAuthService
         return hashOfInput == hash;
     }
 
-    public string GenerateJwtToken(string username, int userId)
+    public string GenerateJwtToken(string username, int userId, string role)
     {
         var jwtKey = _configuration["Jwt:Key"] ?? "YourSuperSecretKeyForJwtTokenGenerationMinimum32Characters!";
         var jwtIssuer = _configuration["Jwt:Issuer"] ?? "ProdjeggApi";
@@ -49,7 +49,8 @@ public class AuthService : IAuthService
             new Claim(JwtRegisteredClaimNames.Sub, username),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
-            new Claim(ClaimTypes.Name, username)
+            new Claim(ClaimTypes.Name, username),
+            new Claim(ClaimTypes.Role, role)
         };
 
         var token = new JwtSecurityToken(

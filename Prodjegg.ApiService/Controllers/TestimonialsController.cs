@@ -59,7 +59,7 @@ public class TestimonialsController : ControllerBase
         });
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult<TestimonialDto>> Create([FromBody] TestimonialDto dto)
     {
@@ -81,7 +81,7 @@ public class TestimonialsController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = testimonial.Id }, dto);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id}")]
     public async Task<ActionResult<TestimonialDto>> Update(int id, [FromBody] TestimonialDto dto)
     {
@@ -103,7 +103,7 @@ public class TestimonialsController : ControllerBase
         return Ok(dto);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {

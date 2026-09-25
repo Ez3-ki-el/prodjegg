@@ -55,7 +55,7 @@ public class ServicesController : ControllerBase
         });
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult<ServiceDto>> Create([FromBody] ServiceDto dto)
     {
@@ -75,7 +75,7 @@ public class ServicesController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = service.Id }, dto);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id}")]
     public async Task<ActionResult<ServiceDto>> Update(int id, [FromBody] ServiceDto dto)
     {
@@ -95,7 +95,7 @@ public class ServicesController : ControllerBase
         return Ok(dto);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {

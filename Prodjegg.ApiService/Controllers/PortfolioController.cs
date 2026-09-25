@@ -65,7 +65,7 @@ public class PortfolioController : ControllerBase
         });
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult<PortfolioItemDto>> Create([FromBody] PortfolioItemDto dto)
     {
@@ -86,7 +86,7 @@ public class PortfolioController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = item.Id }, dto);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id}")]
     public async Task<ActionResult<PortfolioItemDto>> Update(int id, [FromBody] PortfolioItemDto dto)
     {
@@ -107,7 +107,7 @@ public class PortfolioController : ControllerBase
         return Ok(dto);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {

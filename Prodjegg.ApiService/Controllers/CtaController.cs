@@ -38,7 +38,7 @@ public class CtaController : ControllerBase
         });
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPut]
     public async Task<ActionResult<CtaSectionDto>> Update([FromBody] CtaSectionDto dto)
     {

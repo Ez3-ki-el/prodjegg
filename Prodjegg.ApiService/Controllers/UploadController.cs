@@ -5,7 +5,7 @@ namespace Prodjegg.ApiService.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]
+[Authorize(Roles = "Admin")]
 public class UploadController : ControllerBase
 {
     private readonly IWebHostEnvironment _environment;

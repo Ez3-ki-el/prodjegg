@@ -53,7 +53,7 @@ public class SkillsController : ControllerBase
         });
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult<SkillDto>> Create([FromBody] SkillDto dto)
     {
@@ -72,7 +72,7 @@ public class SkillsController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = skill.Id }, dto);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id}")]
     public async Task<ActionResult<SkillDto>> Update(int id, [FromBody] SkillDto dto)
     {
@@ -92,7 +92,7 @@ public class SkillsController : ControllerBase
         return Ok(dto);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {

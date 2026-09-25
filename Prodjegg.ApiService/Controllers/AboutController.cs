@@ -38,7 +38,7 @@ public class AboutController : ControllerBase
         });
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPut]
     public async Task<ActionResult<AboutSectionDto>> Update([FromBody] AboutSectionDto dto)
     {

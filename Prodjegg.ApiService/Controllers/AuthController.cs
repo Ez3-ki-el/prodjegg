@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Prodjegg.ApiService.DTOs;
@@ -30,7 +31,7 @@ public class AuthController : ControllerBase
             return Unauthorized(new { message = "Invalid credentials" });
         }
 
-        var token = _authService.GenerateJwtToken(user.Username, user.Id);
+        var token = _authService.GenerateJwtToken(user.Username, user.Id, user.Role);
 
         return Ok(new LoginResponse
         {
@@ -40,6 +41,9 @@ public class AuthController : ControllerBase
         });
     }
 
+    // Réservé aux admins déjà connectés : permet de créer un autre compte admin,
+    // mais empêche n'importe quel visiteur de s'auto-inscrire avec les droits d'édition.
+    [Authorize(Roles = "Admin")]
     [HttpPost("register")]
     public async Task<ActionResult<LoginResponse>> Register([FromBody] RegisterRequest request)
     {
@@ -58,13 +62,14 @@ public class AuthController : ControllerBase
             Username = request.Username,
             Email = request.Email,
             PasswordHash = _authService.HashPassword(request.Password),
+            Role = "Admin",
             CreatedAt = DateTime.UtcNow
         };
 
         _db.Users.Add(user);
         await _db.SaveChangesAsync();
 
-        var token = _authService.GenerateJwtToken(user.Username, user.Id);
+        var token = _authService.GenerateJwtToken(user.Username, user.Id, user.Role);
 
         return Ok(new LoginResponse
         {

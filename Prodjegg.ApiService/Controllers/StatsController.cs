@@ -53,7 +53,7 @@ public class StatsController : ControllerBase
         });
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult<StatDto>> Create([FromBody] StatDto dto)
     {
@@ -72,7 +72,7 @@ public class StatsController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = stat.Id }, dto);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id}")]
     public async Task<ActionResult<StatDto>> Update(int id, [FromBody] StatDto dto)
     {
@@ -92,7 +92,7 @@ public class StatsController : ControllerBase
         return Ok(dto);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {
