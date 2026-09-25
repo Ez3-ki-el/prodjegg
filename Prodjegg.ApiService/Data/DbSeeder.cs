@@ -39,8 +39,8 @@ public static class DbSeeder
         db.HeroSections.Add(new HeroSection
         {
             FullName = "François Robin Jego",
-            Title = "Professional Video Editor & Storyteller",
-            Description = "I help brands, creators, and businesses tell their story through stunning visuals and cinematic edits. Let's make your vision unforgettable.",
+            Title = "Vidéaste & télépilote de drone professionnel",
+            Description = "J'aide les entreprises, les marques et les organisateurs d'événements à raconter leur histoire à travers des vidéos percutantes et des prises de vues aériennes par drone. Donnons vie à votre projet, au sol comme dans les airs.",
             ImagePath = "/assets/images/frej.jpg",
             FacebookUrl = "#",
             TwitterUrl = "#",
@@ -52,11 +52,11 @@ public static class DbSeeder
         // Seed About Section
         db.AboutSections.Add(new AboutSection
         {
-            Title = "About me",
-            Subtitle = "Passionate storyteller with 5+ years of experience in video production",
-            Paragraph1 = "I'm Angelina Smith, a creative video editor and filmmaker who believes every frame tells a story. With over 5 years of experience in the industry, I've helped brands, content creators, and businesses bring their visions to life through compelling visual narratives.",
-            Paragraph2 = "My expertise spans across various aspects of video production - from initial concept development and scriptwriting to post-production magic. I specialize in creating cinematic content that not only looks stunning but also drives engagement and delivers results.",
-            Paragraph3 = "Whether it's a brand commercial, social media content, or a documentary project, I approach each work with fresh creativity and technical precision. My goal is to transform your raw footage into a masterpiece that resonates with your audience.",
+            Title = "À propos de moi",
+            Subtitle = "Vidéaste passionné, spécialisé en captation d'entreprise, branding et festivals",
+            Paragraph1 = "Je suis François Robin Jego, vidéaste spécialisé dans la captation d'images pour les entreprises, le branding de marque et les festivals. Chaque projet est pensé pour capter l'essence d'un événement ou d'une identité de marque à travers des images percutantes.",
+            Paragraph2 = "Mon expertise couvre la captation vidéo classique ainsi que la prise de vues aériennes par drone, pour offrir des angles uniques et une dimension cinématographique à vos contenus. Du repérage au montage final, je m'adapte aux besoins spécifiques de chaque client.",
+            Paragraph3 = "Que ce soit pour un film d'entreprise, un aftermovie de festival ou une vidéo de marque, j'apporte la même exigence technique et créative à chaque tournage, au sol comme dans les airs.",
             UpdatedAt = DateTime.UtcNow
         });
 
