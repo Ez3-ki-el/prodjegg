@@ -47,26 +47,37 @@
   <div class="quick-actions">
     <h3>Actions rapides</h3>
     <div class="actions-grid">
-      <a href="#" class="action-card">
+      <a routerLink="/admin/hero" class="action-card">
         <iconify-icon icon="bx:user"></iconify-icon>
         <span>Modifier Hero Section</span>
       </a>
-      <a href="#" class="action-card">
+      <a routerLink="/admin/services/new" class="action-card">
         <iconify-icon icon="bx:plus"></iconify-icon>
         <span>Ajouter Service</span>
       </a>
-      <a href="#" class="action-card">
+      <a routerLink="/admin/portfolio/new" class="action-card">
         <iconify-icon icon="bx:image-add"></iconify-icon>
         <span>Ajouter Portfolio</span>
       </a>
-      <a href="#" class="action-card">
+      <a routerLink="/admin/testimonials/new" class="action-card">
         <iconify-icon icon="bx:message-add"></iconify-icon>
         <span>Ajouter Testimonial</span>
       </a>
     </div>
   </div>
 
-  <div class="welcome-message">
+  <div class="duplicates-warning" *ngIf="!isLoading && duplicates.length">
+    <h3><iconify-icon icon="bxs:error"></iconify-icon> Doublons détectés</h3>
+    <ul>
+      <li *ngFor="let dup of duplicates">
+        <a [routerLink]="dup.adminLink">
+          {{ dup.section }} : « {{ dup.label }} » apparaît {{ dup.count }} fois
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="welcome-message" *ngIf="!isLoading && !duplicates.length">
     <iconify-icon icon="bx:info-circle"></iconify-icon>
     <div>
       <h4>Bienvenue sur votre backoffice!</h4>
