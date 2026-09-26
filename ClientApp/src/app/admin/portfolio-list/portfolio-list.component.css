@@ -21,6 +21,19 @@
   transform: scale(1.15) rotate(-2deg);
 }
 
+.portfolio-thumbnail-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 60px;
+  border-radius: 12px;
+  border: 3px solid #e2e8f0;
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  color: #667eea;
+  font-size: 24px;
+}
+
 /* Titre du projet */
 .data-table .project-title {
   font-weight: 600;

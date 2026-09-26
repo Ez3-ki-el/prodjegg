@@ -20,7 +20,13 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of items">
-        <td><img [src]="item.imagePath" alt="{{ item.title }}" class="portfolio-thumbnail" /></td>
+        <td>
+          <img *ngIf="item.imagePath" [src]="item.imagePath" alt="{{ item.title }}" class="portfolio-thumbnail" />
+          <div *ngIf="!item.imagePath" class="portfolio-thumbnail-placeholder"
+            [title]="isInstagramUrl(item.projectUrl) ? 'Reel/post Instagram (aperçu via le lien)' : 'Aucune image'">
+            <iconify-icon [attr.icon]="isInstagramUrl(item.projectUrl) ? 'bxl:instagram' : 'bx:image-alt'"></iconify-icon>
+          </div>
+        </td>
         <td class="project-title">{{ item.title }}</td>
         <td><span class="category-badge">{{ item.category }}</span></td>
         <td><span class="order-badge">{{ item.order }}</span></td>

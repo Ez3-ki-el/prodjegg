@@ -29,6 +29,10 @@ export class PortfolioListComponent implements OnInit {
     });
   }
 
+  isInstagramUrl(url: string | null | undefined): boolean {
+    return /(?:instagram\.com|instagr\.am)\/(?:p|reel|tv)\//i.test(url || '');
+  }
+
   deleteItem(id: number): void {
     if (!confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')) return;
 
