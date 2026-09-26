@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PortfolioService } from '../../services/portfolio.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class PortfolioFormComponent implements OnInit {
     private fb: FormBuilder,
     private portfolioService: PortfolioService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +48,18 @@ export class PortfolioFormComponent implements OnInit {
   get isInstagramProject(): boolean {
     const url = this.portfolioForm?.get('projectUrl')?.value || '';
     return /(?:instagram\.com|instagr\.am)\/(?:p|reel|tv)\//i.test(url);
+  }
+
+  get instagramEmbedUrl(): SafeResourceUrl | null {
+    const url = this.portfolioForm?.get('projectUrl')?.value || '';
+    const match = url.match(/(?:instagram\.com|instagr\.am)\/(p|reel|tv)\/([^/?#]+)/i);
+    if (!match) {
+      return null;
+    }
+
+    const type = match[1].toLowerCase();
+    const shortcode = match[2];
+    return this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.instagram.com/${type}/${shortcode}/embed`);
   }
 
   private updateImageValidator(): void {

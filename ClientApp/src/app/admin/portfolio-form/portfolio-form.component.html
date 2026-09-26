@@ -40,6 +40,15 @@
         https://www.instagram.com/reel/... ou /p/...</small>
     </div>
 
+    <div class="form-group" *ngIf="isInstagramProject">
+      <label>Aperçu Instagram</label>
+      <iframe *ngIf="instagramEmbedUrl; else invalidInstagramUrl" class="instagram-preview" [src]="instagramEmbedUrl"
+        scrolling="no" allowfullscreen></iframe>
+      <ng-template #invalidInstagramUrl>
+        <small>URL Instagram incomplète — colle le lien complet du reel/post pour voir l'aperçu.</small>
+      </ng-template>
+    </div>
+
     <div class="form-actions">
       <button type="submit" class="btn btn-primary" [disabled]="loading || portfolioForm.invalid">
         <span *ngIf="!loading">{{ isEditMode ? 'Mettre à jour' : 'Créer' }}</span>

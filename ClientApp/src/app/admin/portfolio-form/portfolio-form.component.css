@@ -5,3 +5,11 @@ small {
   display: block;
   margin-top: 4px;
 }
+
+.instagram-preview {
+  width: 100%;
+  max-width: 360px;
+  height: 480px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
