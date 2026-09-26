@@ -59,6 +59,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private readonly instagramHeaderHeight = 65;
   private readonly instagramFrameHeights: Record<number, number> = {};
   private readonly instagramWindowToItemId = new Map<Window, number>();
+  private readonly instagramEmbedUrlCache = new Map<string, SafeResourceUrl>();
   private readonly onInstagramMessage = (event: MessageEvent): void => {
     if (event.origin !== 'https://www.instagram.com') {
       return;
@@ -205,7 +206,17 @@ export class HomeComponent implements OnInit, OnDestroy {
     const type = match[1].toLowerCase();
     const shortcode = match[2];
     const embedUrl = `https://www.instagram.com/${type}/${shortcode}/embed`;
-    return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+
+    // bypassSecurityTrustResourceUrl renvoie un nouvel objet à chaque appel.
+    // Sans cache, Angular voit une "nouvelle" valeur sur le binding [src] à
+    // chaque cycle de détection de changement (déclenché par le listener de
+    // messages Instagram ci-dessous) et recharge l'iframe en boucle.
+    let cached = this.instagramEmbedUrlCache.get(embedUrl);
+    if (!cached) {
+      cached = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+      this.instagramEmbedUrlCache.set(embedUrl, cached);
+    }
+    return cached;
   }
 
   onInstagramFrameLoad(event: Event, itemId: number): void {
