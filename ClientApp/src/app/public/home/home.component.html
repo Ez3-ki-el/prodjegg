@@ -106,7 +106,8 @@
 
       <div class="portfolio-gallery">
         <ng-container *ngFor="let item of filteredPortfolioItems">
-          <article *ngIf="item.projectUrl && isInstagramUrl(item.projectUrl)" class="portfolio-item instagram-item">
+          <article *ngIf="item.projectUrl && isInstagramUrl(item.projectUrl) && !item.imagePath"
+            class="portfolio-item instagram-item">
             <span class="insta-badge">
               <iconify-icon icon="bxl:instagram"></iconify-icon>
               Reel Instagram
@@ -127,6 +128,23 @@
               </a>
             </div>
           </article>
+
+          <!-- Post Instagram avec une miniature fournie manuellement: on évite
+               l'embed live (peu fiable pour un format qui ne tient pas dans une
+               vignette verticale) et on l'affiche comme un lien externe classique. -->
+          <a *ngIf="item.projectUrl && isInstagramUrl(item.projectUrl) && item.imagePath" [href]="item.projectUrl"
+            target="_blank" rel="noopener noreferrer" class="portfolio-item">
+            <span class="insta-badge">
+              <iconify-icon icon="bxl:instagram"></iconify-icon>
+              Reel Instagram
+            </span>
+            <img [src]="item.imagePath" [alt]="item.title" loading="lazy" />
+            <div class="portfolio-overlay">
+              <span class="portfolio-title">{{ item.title }}</span>
+              <span class="portfolio-link"><iconify-icon icon="bxl:instagram"></iconify-icon> Voir sur
+                Instagram</span>
+            </div>
+          </a>
 
           <a *ngIf="item.projectUrl && !isInstagramUrl(item.projectUrl)" [href]="item.projectUrl" target="_blank"
             rel="noopener noreferrer" class="portfolio-item">
