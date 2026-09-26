@@ -54,7 +54,7 @@ public static class DbSeeder
         {
             Title = "À propos de moi",
             Subtitle = "Vidéaste passionné, spécialisé en captation d'entreprise, branding et festivals",
-            Paragraph1 = "Je suis François Robin Jego, vidéaste spécialisé dans la captation d'images pour les entreprises, le branding de marque et les festivals. Chaque projet est pensé pour capter l'essence d'un événement ou d'une identité de marque à travers des images percutantes.",
+            Paragraph1 = "Je suis François Robin Jego, vidéaste basé à Rennes, spécialisé dans la captation d'images pour les entreprises, le branding de marque et les festivals, avec des interventions régulières sur la presqu'île de Rhuys et à Arzon. Chaque projet est pensé pour capter l'essence d'un événement ou d'une identité de marque à travers des images percutantes.",
             Paragraph2 = "Mon expertise couvre la captation vidéo classique ainsi que la prise de vues aériennes par drone, pour offrir des angles uniques et une dimension cinématographique à vos contenus. Du repérage au montage final, je m'adapte aux besoins spécifiques de chaque client.",
             Paragraph3 = "Que ce soit pour un film d'entreprise, un aftermovie de festival ou une vidéo de marque, j'apporte la même exigence technique et créative à chaque tournage, au sol comme dans les airs.",
             UpdatedAt = DateTime.UtcNow
