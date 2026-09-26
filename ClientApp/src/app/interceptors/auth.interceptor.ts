@@ -17,8 +17,9 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const token = this.authService.getToken();
+    const isOwnApiCall = request.url.startsWith('/api/');
 
-    if (token) {
+    if (token && isOwnApiCall) {
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`
@@ -29,7 +30,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: unknown) => {
         const isAuthEndpoint = request.url.includes('/api/auth/');
-        if (error instanceof HttpErrorResponse && error.status === 401 && !isAuthEndpoint) {
+        if (error instanceof HttpErrorResponse && error.status === 401 && isOwnApiCall && !isAuthEndpoint) {
           this.authService.logout();
           this.router.navigate(['/admin/login'], { queryParams: { returnUrl: this.router.url } });
         }
