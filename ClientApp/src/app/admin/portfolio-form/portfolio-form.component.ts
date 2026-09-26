@@ -31,6 +31,8 @@ export class PortfolioFormComponent implements OnInit {
       order: [0, Validators.required]
     });
 
+    this.portfolioForm.get('projectUrl')?.valueChanges.subscribe(() => this.updateImageValidator());
+
     const id = this.route.snapshot.params['id'];
     if (id) {
       this.isEditMode = true;
@@ -39,10 +41,26 @@ export class PortfolioFormComponent implements OnInit {
     }
   }
 
+  // Le rendu public embarque le player Instagram natif pour un reel/post et
+  // n'affiche jamais imagePath dans ce cas - inutile d'en exiger un.
+  get isInstagramProject(): boolean {
+    const url = this.portfolioForm?.get('projectUrl')?.value || '';
+    return /(?:instagram\.com|instagr\.am)\/(?:p|reel|tv)\//i.test(url);
+  }
+
+  private updateImageValidator(): void {
+    const imageControl = this.portfolioForm.get('imagePath');
+    if (!imageControl) return;
+
+    imageControl.setValidators(this.isInstagramProject ? [] : [Validators.required]);
+    imageControl.updateValueAndValidity({ emitEvent: false });
+  }
+
   loadItem(id: number): void {
     this.portfolioService.getById(id).subscribe({
       next: (item) => {
         this.portfolioForm.patchValue(item);
+        this.updateImageValidator();
       }
     });
   }

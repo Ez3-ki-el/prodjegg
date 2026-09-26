@@ -9,7 +9,8 @@
 
     <div class="form-group">
       <app-image-upload [currentImage]="portfolioForm.get('imagePath')?.value" folder="portfolio"
-        label="Image du projet" (imageUploaded)="onImageUploaded($event)">
+        [label]="isInstagramProject ? 'Image du projet (optionnelle pour un reel/post Instagram)' : 'Image du projet'"
+        (imageUploaded)="onImageUploaded($event)">
       </app-image-upload>
     </div>
 
