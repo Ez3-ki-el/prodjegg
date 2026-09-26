@@ -14,6 +14,7 @@ public class AppDb(DbContextOptions<AppDb> options) : DbContext(options)
     public DbSet<Stat> Stats { get; set; } = null!;
     public DbSet<Skill> Skills { get; set; } = null!;
     public DbSet<CtaSection> CtaSections { get; set; } = null!;
+    public DbSet<SiteSettings> SiteSettings { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -78,6 +79,12 @@ public class AppDb(DbContextOptions<AppDb> options) : DbContext(options)
         modelBuilder.Entity<CtaSection>(entity =>
         {
             entity.ToTable("CtaSection");
+            entity.HasKey(e => e.Id);
+        });
+
+        modelBuilder.Entity<SiteSettings>(entity =>
+        {
+            entity.ToTable("SiteSettings");
             entity.HasKey(e => e.Id);
         });
     }

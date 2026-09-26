@@ -1,0 +1,46 @@
+<div class="edit-page">
+  <h2>Réglages du site</h2>
+  <p class="settings-hint">
+    Décoche un bloc pour le masquer temporairement du site public (ex: en attendant d'avoir du vrai contenu à y
+    mettre). Le contenu reste enregistré, seul l'affichage change.
+  </p>
+
+  <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
+    <div class="settings-list">
+      <label class="settings-row">
+        <input type="checkbox" formControlName="showServices" />
+        <span>Services</span>
+      </label>
+
+      <label class="settings-row">
+        <input type="checkbox" formControlName="showPortfolio" />
+        <span>Portfolio</span>
+      </label>
+
+      <label class="settings-row">
+        <input type="checkbox" formControlName="showTestimonials" />
+        <span>Témoignages</span>
+      </label>
+
+      <label class="settings-row">
+        <input type="checkbox" formControlName="showStats" />
+        <span>Statistiques</span>
+      </label>
+
+      <label class="settings-row">
+        <input type="checkbox" formControlName="showSkills" />
+        <span>Compétences</span>
+      </label>
+    </div>
+
+    <div class="message success" *ngIf="message">{{ message }}</div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="loading">
+        <span *ngIf="!loading">Enregistrer</span>
+        <span *ngIf="loading">Enregistrement...</span>
+      </button>
+      <button type="button" class="btn btn-secondary" routerLink="/admin/dashboard">Annuler</button>
+    </div>
+  </form>
+</div>

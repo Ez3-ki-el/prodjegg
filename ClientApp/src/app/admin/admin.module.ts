@@ -20,6 +20,7 @@ import { StatFormComponent } from './stat-form/stat-form.component';
 import { SkillsListComponent } from './skills-list/skills-list.component';
 import { SkillFormComponent } from './skill-form/skill-form.component';
 import { CtaEditComponent } from './cta-edit/cta-edit.component';
+import { SettingsEditComponent } from './settings-edit/settings-edit.component';
 import { ImageUploadComponent } from './image-upload/image-upload.component';
 
 const routes: Routes = [
@@ -64,7 +65,10 @@ const routes: Routes = [
       { path: 'skills/edit/:id', component: SkillFormComponent },
 
       // CTA
-      { path: 'cta', component: CtaEditComponent }
+      { path: 'cta', component: CtaEditComponent },
+
+      // Réglages
+      { path: 'settings', component: SettingsEditComponent }
     ]
   }
 ];
@@ -87,6 +91,7 @@ const routes: Routes = [
     SkillsListComponent,
     SkillFormComponent,
     CtaEditComponent,
+    SettingsEditComponent,
     ImageUploadComponent
   ],
   imports: [

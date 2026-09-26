@@ -1,0 +1,32 @@
+@import '../hero-edit/hero-edit.component.css';
+
+.settings-hint {
+  color: #64748b;
+  font-size: 14px;
+  margin: -10px 0 25px;
+  max-width: 560px;
+}
+
+.settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.settings-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+}

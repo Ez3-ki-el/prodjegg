@@ -69,6 +69,15 @@ export interface CtaSection {
   phoneNumber: string;
 }
 
+export interface SiteSettings {
+  id: number;
+  showServices: boolean;
+  showPortfolio: boolean;
+  showTestimonials: boolean;
+  showStats: boolean;
+  showSkills: boolean;
+}
+
 export interface LoginRequest {
   username: string;
   password: string;

@@ -130,6 +130,9 @@ public static class DbSeeder
             UpdatedAt = DateTime.UtcNow
         });
 
+        // Seed Site Settings (tous les blocs visibles par défaut)
+        db.SiteSettings.Add(new SiteSettings());
+
         await db.SaveChangesAsync();
     }
 }

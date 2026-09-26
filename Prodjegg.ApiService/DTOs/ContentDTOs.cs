@@ -78,3 +78,13 @@ public class CtaSectionDto
     public string Email { get; set; } = string.Empty;
     public string PhoneNumber { get; set; } = string.Empty;
 }
+
+public class SiteSettingsDto
+{
+    public int Id { get; set; }
+    public bool ShowServices { get; set; } = true;
+    public bool ShowPortfolio { get; set; } = true;
+    public bool ShowTestimonials { get; set; } = true;
+    public bool ShowStats { get; set; } = true;
+    public bool ShowSkills { get; set; } = true;
+}
