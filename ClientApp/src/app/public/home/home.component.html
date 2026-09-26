@@ -111,11 +111,13 @@
               <iconify-icon icon="bxl:instagram"></iconify-icon>
               Reel Instagram
             </span>
-            <div class="instagram-frame" [style.height.px]="getInstagramFrameHeight(item.id)">
+            <div class="instagram-frame" *ngIf="!isInstagramEmbedTooShort(item.id)">
               <iframe class="instagram-embed" [src]="getInstagramEmbedUrl(item.projectUrl)" [title]="item.title"
-                [style.height.px]="getInstagramIframeHeight(item.id)"
                 (load)="onInstagramFrameLoad($event, item.id)" loading="lazy" scrolling="no" allowfullscreen>
               </iframe>
+            </div>
+            <div class="instagram-frame instagram-fallback" *ngIf="isInstagramEmbedTooShort(item.id)">
+              <iconify-icon icon="bxl:instagram"></iconify-icon>
             </div>
             <div class="portfolio-overlay always-visible">
               <span class="portfolio-title">{{ item.title }}</span>

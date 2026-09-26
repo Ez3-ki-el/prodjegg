@@ -226,14 +226,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  // null tant que la vraie hauteur du post n'est pas connue: le CSS applique
-  // alors sa taille par défaut, en attendant le message Instagram.
-  getInstagramFrameHeight(itemId: number): number | null {
-    const measured = this.instagramFrameHeights[itemId];
-    return measured ? Math.max(measured - this.instagramHeaderHeight, 0) : null;
-  }
+  // Le cadre visible ne montre que les ~460px du haut d'un embed Instagram
+  // (aspect-ratio 4/5 dans le CSS), après avoir masqué les 65px d'en-tête.
+  // Si le post entier (en-tête + média + pied) mesure moins que ça, Instagram
+  // n'a pas assez de média à afficher et comble l'espace avec sa barre
+  // d'interaction (like/commentaire/partage) au lieu de la cacher sous le
+  // cadre - on ne peut pas la masquer davantage sans couper le média lui-même.
+  private readonly instagramMinCleanHeight = 600;
 
-  getInstagramIframeHeight(itemId: number): number | null {
-    return this.instagramFrameHeights[itemId] || null;
+  isInstagramEmbedTooShort(itemId: number): boolean {
+    const measured = this.instagramFrameHeights[itemId];
+    return !!measured && measured < this.instagramMinCleanHeight;
   }
 }

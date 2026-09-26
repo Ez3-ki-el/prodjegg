@@ -795,6 +795,19 @@ section h2 {
   transform: translateY(-65px);
 }
 
+.instagram-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.08) 0%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+.instagram-fallback iconify-icon {
+  font-size: 64px;
+  color: var(--primary-yellow);
+  opacity: 0.85;
+}
+
 .instagram-item .portfolio-overlay {
   padding-bottom: 28px;
   background: linear-gradient(transparent 0%, rgba(0, 0, 0, 0.85) 40%, #101010 100%);
