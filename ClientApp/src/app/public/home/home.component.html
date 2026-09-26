@@ -20,10 +20,10 @@
 
         <div class="nav-links" [class.active]="mobileMenuOpen">
           <a href="#about">A propos de moi</a>
-          <a href="#services">Services</a>
-          <a href="#portfolio">Portfolio</a>
-          <a href="#testimonials">Avis</a>
-          <a href="#skills">Compétences</a>
+          <a *ngIf="settings?.showServices" href="#services">Services</a>
+          <a *ngIf="settings?.showPortfolio" href="#portfolio">Portfolio</a>
+          <a *ngIf="settings?.showTestimonials" href="#testimonials">Avis</a>
+          <a *ngIf="settings?.showSkills" href="#skills">Compétences</a>
           <a href="#cta">Contact</a>
           <a [href]="cta?.email ? 'mailto:' + cta!.email : '#'" class="btn btn-primary nav-cta">Me contacter</a>
         </div>
@@ -39,7 +39,7 @@
         <p>{{ hero.description }}</p>
 
         <div class="hero-buttons">
-          <a href="#portfolio" class="btn btn-primary btn-lg">VOIR MES PROJETS</a>
+          <a *ngIf="settings?.showPortfolio" href="#portfolio" class="btn btn-primary btn-lg">VOIR MES PROJETS</a>
         </div>
 
         <div class="hero-social">
@@ -71,12 +71,12 @@
         <p>{{ about.paragraph1 }}</p>
         <p>{{ about.paragraph2 }}</p>
         <p>{{ about.paragraph3 }}</p>
-        <a href="#portfolio" class="btn-link">Voir mes réalisations</a>
+        <a *ngIf="settings?.showPortfolio" href="#portfolio" class="btn-link">Voir mes réalisations</a>
       </div>
     </section>
 
     <!-- SERVICES SECTION -->
-    <section id="services">
+    <section id="services" *ngIf="settings?.showServices">
       <h2>Ce que je fais</h2>
       <p class="subtitle">Des services vidéo professionnels adaptés à vos besoins</p>
       <div class="divider"></div>
@@ -88,11 +88,11 @@
           <p>{{ service.description }}</p>
         </div>
       </div>
-      <a href="#portfolio" class="btn-link">Voir tous les projets</a>
+      <a *ngIf="settings?.showPortfolio" href="#portfolio" class="btn-link">Voir tous les projets</a>
     </section>
 
     <!-- PORTFOLIO SECTION -->
-    <section id="portfolio">
+    <section id="portfolio" *ngIf="settings?.showPortfolio">
       <h2>Mon Portfolio</h2>
       <p class="subtitle">Une vitrine de projets créatifs et de collaborations réussies</p>
       <div class="divider"></div>
@@ -111,9 +111,10 @@
               <iconify-icon icon="bxl:instagram"></iconify-icon>
               Reel Instagram
             </span>
-            <div class="instagram-frame">
+            <div class="instagram-frame" [style.height.px]="getInstagramFrameHeight(item.id)">
               <iframe class="instagram-embed" [src]="getInstagramEmbedUrl(item.projectUrl)" [title]="item.title"
-                loading="lazy" scrolling="no" allowfullscreen>
+                [style.height.px]="getInstagramIframeHeight(item.id)"
+                (load)="onInstagramFrameLoad($event, item.id)" loading="lazy" scrolling="no" allowfullscreen>
               </iframe>
             </div>
             <div class="portfolio-overlay always-visible">
@@ -144,7 +145,7 @@
     </section>
 
     <!-- TESTIMONIALS SECTION -->
-    <section id="testimonials">
+    <section id="testimonials" *ngIf="settings?.showTestimonials">
       <h2>Ce que disent mes clients</h2>
       <p class="subtitle">La confiance de créateurs, marques et entreprises</p>
       <div class="divider"></div>
@@ -167,7 +168,7 @@
     </section>
 
     <!-- STATISTICS SECTION -->
-    <section id="stats">
+    <section id="stats" *ngIf="settings?.showStats">
       <div class="container">
         <div class="stats-container">
           <div class="stat-item" *ngFor="let stat of stats">
@@ -179,7 +180,7 @@
     </section>
 
     <!-- SKILLS SECTION -->
-    <section id="skills">
+    <section id="skills" *ngIf="settings?.showSkills">
       <h2>Compétences techniques</h2>
       <p class="subtitle">Expertise sur les logiciels et techniques créatives de référence</p>
       <div class="divider"></div>

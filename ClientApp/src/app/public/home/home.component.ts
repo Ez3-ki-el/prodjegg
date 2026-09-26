@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { HeroService } from '../../services/hero.service';
 import { AboutService } from '../../services/about.service';
@@ -8,6 +8,7 @@ import { TestimonialsService } from '../../services/testimonials.service';
 import { StatsService } from '../../services/stats.service';
 import { SkillsService } from '../../services/skills.service';
 import { CtaService } from '../../services/cta.service';
+import { SettingsService } from '../../services/settings.service';
 import {
   HeroSection,
   AboutSection,
@@ -16,7 +17,8 @@ import {
   Testimonial,
   Stat,
   Skill,
-  CtaSection
+  CtaSection,
+  SiteSettings
 } from '../../models/content.models';
 
 @Component({
@@ -24,7 +26,7 @@ import {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   hero?: HeroSection;
   about?: AboutSection;
   services: Service[] = [];
@@ -34,6 +36,7 @@ export class HomeComponent implements OnInit {
   stats: Stat[] = [];
   skills: Skill[] = [];
   cta?: CtaSection;
+  settings?: SiteSettings;
 
   selectedCategory: string = 'TOUT';
   categories: string[] = ['TOUT'];
@@ -51,6 +54,31 @@ export class HomeComponent implements OnInit {
 
   private readonly allowedPrefixes = new Set(['bx', 'bxs', 'bxl']);
 
+  // Hauteur du bandeau d'en-tête Instagram (logo + compte) qu'on masque en
+  // décalant l'iframe vers le haut - constante côté Instagram, indépendante du post.
+  private readonly instagramHeaderHeight = 65;
+  private readonly instagramFrameHeights: Record<number, number> = {};
+  private readonly instagramWindowToItemId = new Map<Window, number>();
+  private readonly onInstagramMessage = (event: MessageEvent): void => {
+    if (event.origin !== 'https://www.instagram.com') {
+      return;
+    }
+
+    const itemId = this.instagramWindowToItemId.get(event.source as Window);
+    if (itemId === undefined) {
+      return;
+    }
+
+    try {
+      const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
+      if (data?.type === 'MEASURE' && typeof data.details?.height === 'number') {
+        this.instagramFrameHeights[itemId] = data.details.height;
+      }
+    } catch {
+      // Message non-JSON ou inattendu : on l'ignore simplement.
+    }
+  };
+
   constructor(
     private sanitizer: DomSanitizer,
     private heroService: HeroService,
@@ -60,11 +88,17 @@ export class HomeComponent implements OnInit {
     private testimonialsService: TestimonialsService,
     private statsService: StatsService,
     private skillsService: SkillsService,
-    private ctaService: CtaService
+    private ctaService: CtaService,
+    private settingsService: SettingsService
   ) { }
 
   ngOnInit(): void {
     this.loadAllData();
+    window.addEventListener('message', this.onInstagramMessage);
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('message', this.onInstagramMessage);
   }
 
   loadAllData(): void {
@@ -76,8 +110,9 @@ export class HomeComponent implements OnInit {
       this.testimonialsService.getAll().toPromise(),
       this.statsService.getAll().toPromise(),
       this.skillsService.getAll().toPromise(),
-      this.ctaService.get().toPromise()
-    ]).then(([hero, about, services, portfolio, testimonials, stats, skills, cta]) => {
+      this.ctaService.get().toPromise(),
+      this.settingsService.get().toPromise()
+    ]).then(([hero, about, services, portfolio, testimonials, stats, skills, cta, settings]) => {
       this.hero = hero;
       this.about = about;
       this.services = services || [];
@@ -88,6 +123,7 @@ export class HomeComponent implements OnInit {
       this.stats = stats || [];
       this.skills = skills || [];
       this.cta = cta;
+      this.settings = settings;
       this.isLoading = false;
     }).catch(error => {
       console.error('Error loading data:', error);
@@ -170,5 +206,23 @@ export class HomeComponent implements OnInit {
     const shortcode = match[2];
     const embedUrl = `https://www.instagram.com/${type}/${shortcode}/embed`;
     return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+  }
+
+  onInstagramFrameLoad(event: Event, itemId: number): void {
+    const contentWindow = (event.target as HTMLIFrameElement).contentWindow;
+    if (contentWindow) {
+      this.instagramWindowToItemId.set(contentWindow, itemId);
+    }
+  }
+
+  // null tant que la vraie hauteur du post n'est pas connue: le CSS applique
+  // alors sa taille par défaut, en attendant le message Instagram.
+  getInstagramFrameHeight(itemId: number): number | null {
+    const measured = this.instagramFrameHeights[itemId];
+    return measured ? Math.max(measured - this.instagramHeaderHeight, 0) : null;
+  }
+
+  getInstagramIframeHeight(itemId: number): number | null {
+    return this.instagramFrameHeights[itemId] || null;
   }
 }
