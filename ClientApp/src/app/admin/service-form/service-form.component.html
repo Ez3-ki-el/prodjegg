@@ -16,8 +16,24 @@
     <div class="form-row">
       <div class="form-group">
         <label>Icône (Iconify)</label>
-        <input type="text" formControlName="iconClass" class="form-control" placeholder="Ex: bxs:video"
-          (blur)="normalizeIconInput()" />
+
+        <input type="text" class="form-control" placeholder="🔍 Rechercher une icône (ex: caméra, drone, film...)"
+          [ngModel]="iconSearchQuery" [ngModelOptions]="{standalone: true}"
+          (ngModelChange)="onIconSearchInput($event)" />
+
+        <div class="icon-search-results" *ngIf="iconSearchResults.length">
+          <button type="button" *ngFor="let icon of iconSearchResults" class="icon-result" [title]="icon"
+            (click)="selectIcon(icon)">
+            <iconify-icon [attr.icon]="icon"></iconify-icon>
+          </button>
+        </div>
+        <small *ngIf="iconSearchLoading">Recherche en cours...</small>
+        <small *ngIf="!iconSearchLoading && iconSearchQuery.trim() && !iconSearchResults.length">
+          Aucun résultat pour "{{ iconSearchQuery }}".
+        </small>
+
+        <input type="text" formControlName="iconClass" class="form-control icon-manual-input"
+          placeholder="Ex: bxs:video" (blur)="normalizeIconInput()" />
 
         <div class="icon-preview">
           <span class="preview-label">Aperçu</span>
@@ -28,9 +44,10 @@
         </div>
 
         <small>
-          Format recommandé: <b>bxs:video</b>. Formats aussi acceptés: <b>bx bxs-video</b> ou <b>bxs-video</b>
-          (convertis automatiquement). Voir:
-          <a href="https://icon-sets.iconify.design/" target="_blank">icon-sets.iconify.design</a>
+          La recherche ne porte que sur les icônes Boxicons (cohérence visuelle avec le reste du site). Format
+          manuel: <b>bxs:video</b>. Formats aussi acceptés: <b>bx bxs-video</b> ou <b>bxs-video</b> (convertis
+          automatiquement). Voir aussi:
+          <a href="https://icon-sets.iconify.design/bx/" target="_blank">icon-sets.iconify.design/bx</a>
         </small>
       </div>
 

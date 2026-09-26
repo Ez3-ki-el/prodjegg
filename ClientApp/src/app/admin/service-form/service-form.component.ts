@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { ServicesService } from '../../services/services.service';
+
+interface IconifySearchResponse {
+  icons: string[];
+}
 
 @Component({
   selector: 'app-service-form',
@@ -23,11 +30,17 @@ export class ServiceFormComponent implements OnInit {
 
   private readonly allowedPrefixes = new Set(['bx', 'bxs', 'bxl']);
 
+  iconSearchQuery = '';
+  iconSearchResults: string[] = [];
+  iconSearchLoading = false;
+  private readonly iconSearch$ = new Subject<string>();
+
   constructor(
     private fb: FormBuilder,
     private servicesService: ServicesService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +51,28 @@ export class ServiceFormComponent implements OnInit {
       iconClass: ['bxs:video', Validators.required],
       order: [0, Validators.required]
     });
+
+    this.iconSearch$
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap((query) => {
+          this.iconSearchLoading = true;
+          return this.http.get<IconifySearchResponse>('https://api.iconify.design/search', {
+            params: { query, limit: '48', prefixes: 'bx,bxs,bxl' }
+          });
+        })
+      )
+      .subscribe({
+        next: (res) => {
+          this.iconSearchResults = res.icons || [];
+          this.iconSearchLoading = false;
+        },
+        error: () => {
+          this.iconSearchResults = [];
+          this.iconSearchLoading = false;
+        }
+      });
 
     const id = this.route.snapshot.params['id'];
     if (id) {
@@ -56,6 +91,25 @@ export class ServiceFormComponent implements OnInit {
         });
       }
     });
+  }
+
+  onIconSearchInput(query: string): void {
+    this.iconSearchQuery = query;
+
+    const trimmed = query.trim();
+    if (!trimmed) {
+      this.iconSearchResults = [];
+      this.iconSearchLoading = false;
+      return;
+    }
+
+    this.iconSearch$.next(trimmed);
+  }
+
+  selectIcon(icon: string): void {
+    this.serviceForm.get('iconClass')?.setValue(icon);
+    this.iconSearchQuery = '';
+    this.iconSearchResults = [];
   }
 
   onSubmit(): void {
