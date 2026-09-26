@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Prodjegg.ApiService.Services;
 using Prodjegg.Data.Db;
 using System.Text;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +58,20 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddAuthorization();
+
+// Anti-bruteforce: limite les tentatives de connexion par IP
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+    options.AddPolicy("login", httpContext => RateLimitPartition.GetFixedWindowLimiter(
+        partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+        factory: _ => new FixedWindowRateLimiterOptions
+        {
+            PermitLimit = 5,
+            Window = TimeSpan.FromMinutes(1),
+            QueueLimit = 0
+        }));
+});
 
 // Services
 builder.Services.AddScoped<IAuthService, AuthService>();
@@ -132,6 +148,8 @@ app.UseCors("AllowAngular");
 
 // Routing (important pour .NET 8)
 app.UseRouting();
+
+app.UseRateLimiter();
 
 // Authentication & Authorization
 app.UseAuthentication();

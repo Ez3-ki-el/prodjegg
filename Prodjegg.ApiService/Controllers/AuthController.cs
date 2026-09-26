@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Prodjegg.ApiService.DTOs;
 using Prodjegg.ApiService.Services;
@@ -21,6 +22,7 @@ public class AuthController : ControllerBase
         _authService = authService;
     }
 
+    [EnableRateLimiting("login")]
     [HttpPost("login")]
     public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginRequest request)
     {
