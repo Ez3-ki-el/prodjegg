@@ -31,7 +31,14 @@ public class UploadController : ControllerBase
             return BadRequest("Invalid file type. Only images are allowed.");
         }
 
-        var uploadsFolder = Path.Combine(_environment.WebRootPath, "uploads", folder);
+        var uploadsRoot = GetUploadsRoot();
+        var uploadsFolder = Path.GetFullPath(Path.Combine(uploadsRoot, folder));
+
+        if (!IsWithinUploadsRoot(uploadsFolder, uploadsRoot))
+        {
+            return BadRequest("Invalid folder");
+        }
+
         Directory.CreateDirectory(uploadsFolder);
 
         var uniqueFileName = $"{Guid.NewGuid()}{extension}";
@@ -54,7 +61,13 @@ public class UploadController : ControllerBase
             return BadRequest("Path is required");
         }
 
-        var filePath = Path.Combine(_environment.WebRootPath, path.TrimStart('/'));
+        var uploadsRoot = GetUploadsRoot();
+        var filePath = Path.GetFullPath(Path.Combine(_environment.WebRootPath, path.TrimStart('/', '\\')));
+
+        if (!IsWithinUploadsRoot(filePath, uploadsRoot))
+        {
+            return BadRequest("Invalid path");
+        }
 
         if (System.IO.File.Exists(filePath))
         {
@@ -64,4 +77,13 @@ public class UploadController : ControllerBase
 
         return NotFound("File not found");
     }
+
+    // Résout /wwwroot/uploads une seule fois, avec un séparateur final pour que le
+    // contrôle StartsWith ci-dessous ne matche pas un dossier voisin (ex: "uploads-evil").
+    private string GetUploadsRoot() =>
+        Path.GetFullPath(Path.Combine(_environment.WebRootPath, "uploads") + Path.DirectorySeparatorChar);
+
+    // Empêche un ".." ou un chemin absolu dans `folder`/`path` de sortir de wwwroot/uploads.
+    private static bool IsWithinUploadsRoot(string resolvedPath, string uploadsRoot) =>
+        resolvedPath.StartsWith(uploadsRoot, StringComparison.OrdinalIgnoreCase);
 }
